@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import com.techghar.DAO.CarouselDAO;
 import com.techghar.model.CarouselItem;
-import com.techghar.utility.ErrorHandlerUtiltiy;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
  * Servlet implementation class CarouselServlet
@@ -41,7 +41,7 @@ public class CarouselController extends HttpServlet {
     	        dispatcher.forward(request, response);
     	}
        catch(ServletException | IOException | SQLException | ClassNotFoundException e) {
-    	   ErrorHandlerUtiltiy.handleError(request, response, "Oops Error Occured! Try Again later ");
+    	   ErrorHandlerUtilty.handleError(request, response, "Oops Error Occured! Try Again later ");
     	   e.printStackTrace();
        }
     }

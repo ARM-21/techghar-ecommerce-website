@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.techghar.DAO.ProductDAO;
-import com.techghar.utility.ErrorHandlerUtiltiy;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
  * Servlet implementation class SearchController
@@ -44,7 +44,7 @@ public class SearchController extends HttpServlet {
 		request.setAttribute("pageContent", "/WEB-INF/pages/search.jsp");
 		request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
 		}catch(SQLException | ServletException | IOException | ClassNotFoundException e) {
-			ErrorHandlerUtiltiy.handleError(request, response, "Oops! Error Occured ! Try Again Later");
+			ErrorHandlerUtilty.handleError(request, response, "Oops! Error Occured ! Try Again Later");
 		}
 	}
 

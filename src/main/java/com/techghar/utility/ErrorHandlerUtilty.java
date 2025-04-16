@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ErrorHandlerUtiltiy {
+public class ErrorHandlerUtilty {
 
 	
 	public static void handleError(HttpServletRequest request, HttpServletResponse response, String message){

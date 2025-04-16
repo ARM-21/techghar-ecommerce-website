@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.UserModel;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 public class UserDAO {
 	
@@ -48,4 +54,66 @@ public class UserDAO {
         user.setGender(rs.getString("gender"));
         return user;
     }
+    
+    // Update user details
+    public boolean updateUser(UserModel user, HttpServletRequest request, HttpServletResponse response) {
+        StringBuilder sql = new StringBuilder("UPDATE users SET ");
+        List<Object> params = new ArrayList<>();
+
+        if (user.getFirstName() != null) {
+            sql.append("first_name = ?, ");
+            params.add(user.getFirstName());
+        }
+        if (user.getLastName() != null) {
+            sql.append("last_name = ?, ");
+            params.add(user.getLastName());
+        }
+        if (user.getEmail() != null) {
+            sql.append("email = ?, ");
+            params.add(user.getEmail());
+        }
+        if (user.getPhone() != null) {
+            sql.append("phone = ?, ");
+            params.add(user.getPhone());
+        }
+        if (user.getAddress() != null) {
+            sql.append("address = ?, ");
+            params.add(user.getAddress());
+        }
+        if (user.getUsername() != null) {
+            sql.append("username = ?, ");
+            params.add(user.getUsername());
+        }
+        if (user.getDob() != null) {
+            sql.append("dob = ?, ");
+            params.add(user.getDob());
+        }
+        if (user.getGender() != null) {
+            sql.append("gender = ?, ");
+            params.add(user.getGender());
+        }
+
+        // Remove trailing comma and space
+        if (params.isEmpty()) {
+            // Nothing to update
+            return false;
+        }
+
+        sql.setLength(sql.length() - 2);
+        sql.append(" WHERE user_id = ?");
+        params.add(request.getParameter("id"));
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            ErrorHandlerUtilty.handleError(request, response, "Failed to update user: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    
 }

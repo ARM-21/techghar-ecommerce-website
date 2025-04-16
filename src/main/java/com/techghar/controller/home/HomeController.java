@@ -13,7 +13,7 @@ import com.techghar.DAO.CarouselDAO;
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.CarouselItem;
 import com.techghar.model.Product;
-import com.techghar.utility.ErrorHandlerUtiltiy;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/home"})
@@ -37,7 +37,7 @@ public class HomeController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 		}
 		catch(SQLException | ClassNotFoundException | IOException | ServletException e) {
-			ErrorHandlerUtiltiy.handleError(request, response, "Oops! Error Occured Try Again Later");
+			ErrorHandlerUtilty.handleError(request, response, "Oops! Error Occured Try Again Later");
 		}
 	}
 	

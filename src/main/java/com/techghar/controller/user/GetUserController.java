@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.techghar.DAO.UserDAO;
-import com.techghar.utility.ErrorHandlerUtiltiy;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
- * Servlet implementation class UserController
+ * Servlet implementation class GetUserController
  */
 @WebServlet(asyncSupported = true, urlPatterns = {"/user-profile","/update-profile"})
-public class UserController extends HttpServlet {
+public class GetUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserController() {
+    public GetUserController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,6 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response){
 		// TODO Auto-generated method stub
-		
-		
-		
 		try {
 			
 			System.out.println(request.getRequestURI());
@@ -52,17 +49,11 @@ public class UserController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 		} catch (IOException | ServletException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			ErrorHandlerUtiltiy.handleError(request, response,"Oops! Error Occured While fetching user details");
+			ErrorHandlerUtilty.handleError(request, response,"Oops! Error Occured While fetching user details");
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+
 
 }

@@ -1,12 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Edit Profile</title>
     <style>
-  
+   /* Add message styles */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #86efac;
+        }
+
+        .alert-close {
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 15px;
+        }
 
         .edit-container {
             max-width: 700px;
@@ -47,7 +74,7 @@
             font-size: 15px;
         }
 
-        button {
+       .edit-container button {
             width: 100%;
             padding: 12px;
             background-color: #2980b9;
@@ -58,7 +85,7 @@
             cursor: pointer;
         }
 
-        button:hover {
+       .edit-container button:hover {
             background-color: #1f5f8b;
         }
     </style>
@@ -67,7 +94,24 @@
 
 <div class="edit-container">
     <h2>Edit Your Profile</h2>
-    <form action="update-profile" method="post">
+        
+    <!-- Error Message -->
+    <c:if test="${not empty error}">
+        <div class="alert alert-error">
+            <span>${error}</span>
+            <span class="alert-close" onclick="this.parentElement.style.display='none'">×</span>
+        </div>
+    </c:if>
+
+    <!-- Success Message -->
+    <c:if test="${not empty success}">
+        <div class="alert alert-success">
+            <span>${success}</span>
+                <a href="/user-profile?id=${sessionScope.id}"> click here </a>
+            <span class="alert-close" onclick="this.parentElement.style.display='none'">×</span>
+        </div>
+    </c:if>
+    <form action="update-profile-post" method="post">
         <input type="hidden" name="id" value="${sessionScope.id}">
 
         <div class="form-group">
@@ -97,8 +141,8 @@
 
         <div class="form-group">
             <label for="dob">Date of Birth</label>
-            <input type="date" name="dob" id="dob" 
-                value="${userDetails.dob }">
+            <input type="date" name="dob" id="dob" required
+                value="${userDetails.dob}">
         </div>
 
         <div class="form-group">
@@ -111,7 +155,7 @@
 
         <div class="form-group">
             <label for="address">Address</label>
-            <textarea name="address" id="address" rows="3">${userDetails.address}</textarea>
+            <textarea name="address" id="address" draggable="false" rows="3">${userDetails.address} </textarea>
         </div>
 
         <div class="form-group">
