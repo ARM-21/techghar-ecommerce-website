@@ -15,31 +15,30 @@ import com.techghar.model.CarouselItem;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
 
-
-@WebServlet(asyncSupported = true, urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/home" })
+public class GetHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		//carousel data
-		
+		// carousel data
+
 		try {
 			CarouselDAO carouselDAO = new CarouselDAO();
 			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
+			System.out.println("Database Connected Successfully");
 			request.setAttribute("carouselItems", carouselItems);
-			//product data
-			 ProductDAO productDAO = new ProductDAO();
-			    ArrayList<Product> products = productDAO.getAllProducts();
+			// product data
+			ProductDAO productDAO = new ProductDAO();
+			ArrayList<Product> products = productDAO.getAllProducts();
 
-			    request.setAttribute("products", products);		
-			//main section
+			request.setAttribute("products", products);
+			// main section
 			request.setAttribute("pageContent", "./main.jsp");
 			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
-		}
-		catch(SQLException | ClassNotFoundException | IOException | ServletException e) {
+		} catch (SQLException | ClassNotFoundException | IOException | ServletException e) {
+			e.printStackTrace();
 			ErrorHandlerUtilty.handleError(request, response, "Oops! Error Occured Try Again Later");
 		}
 	}
-	
-	
+
 }

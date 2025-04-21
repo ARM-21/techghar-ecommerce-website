@@ -72,7 +72,8 @@ public class LoginController extends HttpServlet {
 	private void rememberUser(Boolean isRemember,int time, Boolean loginStatus, String email, HttpServletResponse resp, HttpServletRequest request) throws ServletException, IOException {
 		
 		if (loginStatus != null && loginStatus) {
-			if (email.equals("admin@gmail.com")) {
+			System.out.println(SessionUtil.getAttribute(request, "role"));
+			if (SessionUtil.getAttribute(request, "role").equals("admin")) {
 				CookieUtility.addCookie(resp, "role", "admin", time *  60 * 60);
 				resp.sendRedirect( "/dashboard"); // Redirect to /dashboard
 			} else {

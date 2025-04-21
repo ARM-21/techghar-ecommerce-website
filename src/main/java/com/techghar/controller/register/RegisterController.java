@@ -86,18 +86,17 @@ public class RegisterController extends HttpServlet {
 				handleError(request, response, "Email already exists with email !"+ email);
 				return ;
 			}			
-			Boolean isAdded = daoRegister.addNewUser(user);
+			
+			Boolean isAdded = daoRegister.addNewUser(user,request,response);
 			if (isAdded == null) {
 				handleError(request, response, "Our server is under maintenance. Please try again later!");
 			} else if (isAdded) {			
 				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/home.jsp");
 
-			} else {
-				handleError(request, response, "Could not register your account. Please try again later!");
 			}
 		} 
 	catch (Exception e) {
-			handleError(request, response, "An unexpected error occurred. Please try again later!");
+			handleError(request, response, "An unexpected error occurred. Please try again later!" +e.getMessage());
 			e.printStackTrace(); // Log the exception
 		}
 

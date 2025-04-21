@@ -107,11 +107,11 @@
     <c:if test="${not empty success}">
         <div class="alert alert-success">
             <span>${success}</span>
-                <a href="/user-profile?id=${sessionScope.id}"> click here </a>
+                <a href="/${sessionScope.role == 'admin'?'admin-profile':'user-profile'}?id=${sessionScope.id}"> click here </a>
             <span class="alert-close" onclick="this.parentElement.style.display='none'">×</span>
         </div>
     </c:if>
-    <form action="update-profile-post" method="post">
+    <form action="${sessionScope.role == 'admin'?'update-ad-profile-post':'update-profile-post' }" method="post">
         <input type="hidden" name="id" value="${sessionScope.id}">
 
         <div class="form-group">

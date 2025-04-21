@@ -170,6 +170,10 @@
             .info-grid {
                 grid-template-columns: 1fr;
             }
+            .info-item{
+            display:flex;
+            flex-direction:column;
+            }
         }
     </style>
 </head>
@@ -207,7 +211,7 @@
                 <span class="value"><fmt:formatDate value="${userDetails.dob}" pattern="MMMM d, yyyy" /></span>
             </div>
         </div>
-        <form action="update-profile" method="get">
+        <form action=" ${sessionScope.role == 'admin'? 'update-admin-profile':'update-profile'} " method="get">
             <input type="hidden" name="id" value="${sessionScope.id}">
             <button type="submit" class="edit-button">
                 <i class="fas fa-edit"></i>

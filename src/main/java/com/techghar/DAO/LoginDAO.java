@@ -42,14 +42,14 @@ public class LoginDAO {
 			return null;
 		}
 
-		String query = "SELECT email,username,user_id, password FROM users WHERE email = ?";
+		String query = "SELECT email,username,user_id, password, role FROM users WHERE email = ?";
 		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
 			stmt.setString(1, email);
 			ResultSet result = stmt.executeQuery();
 			
 			if (result.next()) {
 				
-				return validateUserAndPassword(result, request, email, password, result.getString("username"), result.getInt("user_id"));
+				return validateUserAndPassword(result, request, email, password, result.getString("username"), result.getInt("user_id"), result.getString("role"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class LoginDAO {
 	 * @return true if the passwords match, false otherwise
 	 * @throws SQLException if a database access error occurs
 	 */
-	private boolean validateUserAndPassword(ResultSet result, HttpServletRequest request, String email, String password,String username, int id) throws SQLException {
+	private boolean validateUserAndPassword(ResultSet result, HttpServletRequest request, String email, String password,String username, int id, String role) throws SQLException {
 		String dbEmail = result.getString("email");
 		String dbPassword = result.getString("password");
 
@@ -78,6 +78,7 @@ public class LoginDAO {
 		if(isCorrect) {
 			SessionUtil.setAttribute(request, "username", username);
 			SessionUtil.setAttribute(request,"id",id );
+			SessionUtil.setAttribute(request,"role",role.toLowerCase());
 		}
 		return isCorrect;
 	}

@@ -8,7 +8,16 @@
     <title>Error</title>
   <style>
   
-  <style>
+ 
+  
+  .error-container{
+  height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  
+  }
 .error-message {
     color: white;
     background-color: red;
@@ -43,7 +52,7 @@
     <div class="error-container">
         <h1>Oops! Something went wrong.</h1>
         <p>${error}</p>
-        <a href="/home">Go Back to Home</a>
+        <a href="${ sessionScope.role eq 'admin' ? '/dashboard':'/home' }">Go Back to Home</a>
     </div>
 </body>
 </html>

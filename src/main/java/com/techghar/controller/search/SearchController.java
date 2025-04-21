@@ -38,12 +38,13 @@ public class SearchController extends HttpServlet {
 	
 		request.setAttribute("brands", dao.getAllBrands());
 		request.setAttribute("categories", dao.getAllCategories());
-		
+		request.setAttribute("ratings", dao.getAllRatings());
 		request.setAttribute("products", dao.getAllProducts());
 		
 		request.setAttribute("pageContent", "/WEB-INF/pages/search.jsp");
 		request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
 		}catch(SQLException | ServletException | IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 			ErrorHandlerUtilty.handleError(request, response, "Oops! Error Occured ! Try Again Later");
 		}
 	}
@@ -53,7 +54,37 @@ public class SearchController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		 // Retrieve filter parameters from the request
+	    String categoryId = request.getParameter("category");  // Category ID
+	    String brandId = request.getParameter("brand");        // Brand ID
+	    String minPriceStr = request.getParameter("minPrice");   // Min price
+	    String maxPriceStr = request.getParameter("maxPrice");   // Max price
+	    String minRatingStr = request.getParameter("rating"); // Min rating
+
+	    Integer minPrice = minPriceStr != null && !minPriceStr.isEmpty() ? Integer.parseInt(minPriceStr) : null;
+	    Integer maxPrice = maxPriceStr != null && !maxPriceStr.isEmpty() ? Integer.parseInt(maxPriceStr) : null;
+	    Integer minRating = minRatingStr != null && !minRatingStr.isEmpty() ? Integer.parseInt(minRatingStr) : null;
+	    
+	    
+	    
+		ProductDAO dao;
+		try {
+			dao = new ProductDAO();
+	
+		request.setAttribute("brands", dao.getAllBrands());
+		request.setAttribute("categories", dao.getAllCategories());
+		request.setAttribute("ratings", dao.getAllRatings());
+		request.setAttribute("products", dao.getFilteredProducts(categoryId,brandId,minPrice,maxPrice,minRating));
+		request.setAttribute("pageContent", "/WEB-INF/pages/search.jsp");
+		request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
+		}
+		catch(SQLException | ServletException | IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			ErrorHandlerUtilty.handleError(request, response, "Oops! Error Occured ! Try Again Later");
+		}
+
+		
 	}
 
 }

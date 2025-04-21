@@ -27,7 +27,8 @@ public class AuthenticatorFilter implements Filter {
 
     private static final String[] ADMIN_PAGES = {
         "/dashboard", "/admin-orders", "/admin-users", "/admin-products",
-        "/admin-update", "/product-delete", "/product-add", "/manage-orders"
+        "/admin-update", "/delete-product", "/add-product", "/manage-orders" , "/save-product","/admin-profile","/update-admin-profile","/update-ad-profile-post" 
+        ,"/view-stat", "/view-categories-admin"
     };
 
     @Override
@@ -90,6 +91,7 @@ public class AuthenticatorFilter implements Filter {
             if (uri.endsWith(page)) {
                 if (isLoggedIn && "user".equals(role)) {
                     chain.doFilter(req, res);
+                    return;
                 } else {
                     response.sendRedirect(contextPath + LOGIN);
                 }
@@ -102,6 +104,7 @@ public class AuthenticatorFilter implements Filter {
             if (uri.endsWith(page)) {
                 if (isLoggedIn && "admin".equals(role)) {
                     chain.doFilter(req, res);
+                    return;
                 } else {
                     response.sendRedirect(contextPath + LOGIN);
                 }

@@ -18,13 +18,13 @@ import com.techghar.utility.ErrorHandlerUtilty;
  * Servlet implementation class CarouselServlet
  */
 @WebServlet("/carousel")
-public class CarouselController extends HttpServlet {
+public class GetCarouselServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        private CarouselDAO carouselDAO ; 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarouselController() {
+    public GetCarouselServlet() {
     	  }
     
 
@@ -45,12 +45,6 @@ public class CarouselController extends HttpServlet {
     	   e.printStackTrace();
        }
     }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+
 
 }

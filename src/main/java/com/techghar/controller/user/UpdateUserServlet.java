@@ -18,16 +18,16 @@ import com.techghar.model.UserModel;
 import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
- * Servlet implementation class UpdateUserController
+ * Servlet implementation class UpdateUserServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = {"/update-profile-post"})
-public class UpdateUserController extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = {"/update-profile-post", "/update-ad-profile-post"})
+public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserController() {
+    public UpdateUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,17 +55,36 @@ public class UpdateUserController extends HttpServlet {
 			user.setAddress(request.getParameter("address"));
 			user.setPassword(request.getParameter("password"));
 		if(dao.updateUser(user, request, response)) {
-			request.setAttribute("success", "User Details updated successfully!");
-			request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
-			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+			
+			if(request.getRequestURI().equals("/update-ad-profile-post")) {
+				System.out.println("Admin update request");
+				request.setAttribute("success", "User Details updated successfully!");
+				request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
+				request.getRequestDispatcher("/WEB-INF/pages/admin/dashboard.jsp").forward(request,response);
+			}
+			else {
+				request.setAttribute("success", "User Details updated successfully!");
+				request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
+				request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+			}
+		
 		}
 			
 		} catch (ClassNotFoundException | SQLException | ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			request.setAttribute("error", "Update User Details unsuccessfully! Try Again Later");
-			request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
-			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+			
+			if(request.getRequestURI().equals("/update-ad-profile-post")) {
+				request.setAttribute("error", "Update User Details unsuccessfully! Try Again Later");
+				request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
+				request.getRequestDispatcher("/WEB-INF/pages/admin/dashboard.jsp").forward(request,response);
+			}
+			else {
+				request.setAttribute("error", "Update User Details unsuccessfully! Try Again Later");
+				request.setAttribute("pageContent", "/WEB-INF/pages/updateProfile.jsp");
+				request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+			}
+			
 //			ErrorHandlerUtilty.handleError(request, response, e.getMessage());
 		}
 		

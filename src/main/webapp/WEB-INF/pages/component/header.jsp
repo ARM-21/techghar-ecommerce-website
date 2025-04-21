@@ -29,7 +29,7 @@
 	border-radius: 4px;
 }
 
-.user-dropdown:hover .user-dropdown-content  {
+.user-dropdown:hover .user-dropdown-content {
 	display: block;
 }
 
@@ -105,10 +105,11 @@
 					<li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
 				</ul>
 				<div class="nav-icons">
-					<a href="search-catalog" title="Search"><span
-						class="icon icon-search"></span></a> <a href="cart.html" title="Cart"><span
-						class="icon icon-cart"></span></a>
-						
+					<a href="search-catalog" title="Search"> <span
+						class="icon icon-search"></span></a>
+					<c:if test="${not empty sessionScope.username }">
+						<a href="view-cart" title="Cart"><span class="icon icon-cart"></span></a>
+					</c:if>
 
 					<c:choose>
 						<c:when test="${not empty sessionScope.username}">
@@ -118,8 +119,8 @@
 									<span class="icon icon-user"></span> <span>${username}</span>
 								</div>
 								<div class="user-dropdown-content">
-									<a href="/user-profile?id=${id}" class="user-dropdown-item" >Profile</a> <a
-										href="orders" class="user-dropdown-item">Orders</a>
+									<a href="/user-profile?id=${id}" class="user-dropdown-item">Profile</a>
+									<a href="orders" class="user-dropdown-item">Orders</a>
 									<form action="/logout" method="POST" class="user-dropdown-item">
 										<button type="submit">Logout</button>
 									</form>

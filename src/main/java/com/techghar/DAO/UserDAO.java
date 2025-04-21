@@ -93,9 +93,7 @@ public class UserDAO {
             params.add(user.getGender());
         }
 
-        // Remove trailing comma and space
         if (params.isEmpty()) {
-            // Nothing to update
             return false;
         }
 

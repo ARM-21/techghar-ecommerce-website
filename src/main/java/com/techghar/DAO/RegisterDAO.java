@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.UserModel;
+import com.techghar.utility.ErrorHandlerUtilty;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ private  Connection conn = null;
 	 * @param user The UserModel object containing all user details.
 	 * @return true if the user was successfully added, false otherwise.
 	 */
-	public Boolean addNewUser(UserModel user) {
+	public Boolean addNewUser(UserModel user, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("Adding");
 		System.out.println(conn);
 	    // Functional level: return flag for insertion status
@@ -78,6 +79,13 @@ private  Connection conn = null;
 	    } catch (SQLException e) {
 	        // Handle any SQL-related exceptions
 	        e.printStackTrace();
+	        try {
+				handleError(request,response,"Error Occured! "+ e.getMessage());
+			} catch (ServletException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				ErrorHandlerUtilty.handleError(request, response, "An Unexpected Error Occured! TRy Again Later");
+			}
 	    }
 	    System.out.println(hasAdded);
 
@@ -86,6 +94,12 @@ private  Connection conn = null;
 	}
 
 
+	private void handleError(HttpServletRequest request, HttpServletResponse response, String message)
+			throws ServletException, IOException {
+		request.setAttribute("error", message);
+		request.setAttribute("pageContent", "/WEB-INF/pages/register.jsp");
+		request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
+	}
 	
 	/**
 	 * Checks if a user with the given email already exists in the 'user_table'.

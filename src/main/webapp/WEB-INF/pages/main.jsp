@@ -107,9 +107,10 @@ body {
 
 /* Product Grid */
 .product-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	display: flex;
+	flex-wrap:wrap;
 	gap: 25px;
+	justify-content:center;
 }
 
 /* Product Cards */
@@ -253,93 +254,94 @@ body {
 .far.fa-star::before {
 	content: "☆";
 }
+
 .product-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+	height:400px;
+	width:300px;
+	transition: transform 0.2s ease-in-out;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+	transform: translateY(-5px);
 }
 
 .product-img-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    background-color: #f1f1f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+	background-color: #f1f1f1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .product-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+	max-width: 100%;
+	max-height: 100px;
+	object-fit: co;
 }
 
 .product-details {
-    padding: 1rem;
+	padding: 1rem;
 }
 
 .product-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: #333;
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+	color: #333;
 }
 
 .product-price {
-    color: #e91e63;
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+	color: #e91e63;
+	font-size: 1rem;
+	margin-bottom: 0.3rem;
 }
 
-.product-stock,
-.product-brand,
-.product-category {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.2rem;
+.product-stock, .product-brand, .product-category {
+	font-size: 0.9rem;
+	color: #666;
+	margin-bottom: 0.2rem;
 }
 
 .product-rating {
-    margin: 0.5rem 0;
+	margin: 0.5rem 0;
 }
 
 .star {
-    font-size: 1rem;
-    color: #ccc;
+	font-size: 1rem;
+	color: #ccc;
 }
 
 .star.filled {
-    color: #ffc107;
+	color: #ffc107;
 }
 
 .add-to-cart {
-    background-color: #6200ea;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
-    width: 90%;
-    margin: 0.8rem auto 1rem;
-    display: block;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+	background-color: #6200ea;
+	color: #fff;
+	border: none;
+	padding: 0.6rem 1.2rem;
+	font-size: 0.95rem;
+	width: 90%;
+	margin: 0.8rem auto 1rem;
+	display: block;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
 }
 
 .add-to-cart:hover {
-    background-color: #3700b3;
+	background-color: #3700b3;
 }
 /* Responsive Styles */
 @media ( max-width : 992px) {
 	.product-grid {
-		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		display:flex;
 	}
 }
 
@@ -393,7 +395,7 @@ body {
 
 		<div class="product-grid">
 			<c:forEach var="product" items="${products}">
-			
+
 
 				<div class="product-card">
 					<div class="product-img-container">
@@ -404,60 +406,40 @@ body {
 					</div>
 
 					<div class="product-details">
-					<a href="product-details?id=${product.id}">
-						<h3 class="product-name">${product.name}</h3>
-						<div class="product-price">Price: $${product.price}</div>
-						<div class="product-stock">Stock: ${product.stock}</div>
-						<div class="product-brand">Brand: ${product.brand}</div>
-						<div class="product-category">Category: ${product.category}</div>
-						<div class="product-rating">
-							Rating:
-							<c:forEach begin="1" end="5" var="i">
-								<c:choose>
-									<c:when test="${i <= product.rating}">
-										<span class="star filled">&#9733;</span>
-									</c:when>
-									<c:otherwise>
-										<span class="star">&#9734;</span>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							</a>
-						</div>
+						<a href="product-details?id=${product.id}">
+							<h3 class="product-name">${product.name}</h3>
+							<div class="product-price">Price: $${product.price}</div>
+							<div class="product-brand">Brand: ${product.brandName}</div>
+							<div class="product-category">Category: ${product.categoryName}</div>
+							<div class="product-rating">
+								Rating:
+								<c:forEach begin="1" end="5" var="i">
+									<c:choose>
+										<c:when test="${i <= product.rating}">
+											<span class="star filled">&#9733;</span>
+										</c:when>
+										<c:otherwise>
+											<span class="star">&#9734;</span>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								</div>
+						</a>
 					</div>
-
-					<button class="add-to-cart" data-id="${product.id}"
-						data-name="${product.name}" data-price="${product.price}">
-						Add to Cart</button>
+					<a href="product-details?id=${product.id}">
+					<button class="add-to-cart">view Product</button>
+				</a>
 				</div>
+				
 		
-			</c:forEach>
 
+		</c:forEach>
 
+</div>
 
-			<!-- Pagination can be added here if needed -->
-		</div>
+	</div>
 	</section>
 	<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            const productName = this.getAttribute('data-name');
-            const productPrice = this.getAttribute('data-price');
-            
-            // Add your cart functionality here
-            console.log(`Adding to cart: ${productName} - $${productPrice}`);
-            
-            // Example AJAX call
-            // fetch('addToCart?id=' + productId + '&quantity=1', { method: 'POST' })
-            //     .then(response => response.json())
-            //     .then(data => console.log('Product added', data));
-        });
-    });
-});
 </script>
 
 </body>
