@@ -29,7 +29,7 @@ public class ProductDAO {
 		ArrayList<Product> productList = new ArrayList<Product>();
 
 		PreparedStatement stmt = conn.prepareStatement(
-				"SELECT p.product_id, p.name, p.price, p.description, p.stock,p.created_at, pi.image_url, p.rating,b.brand_id,c.category_id, b.brand_name AS brand, c.name AS category FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN product_images pi ON p.product_id = pi.product_id GROUP BY p.product_id");
+				"SELECT p.product_id, p.name, p.price, p.description, p.stock,p.created_at, pi.image_url, p.rating,b.brand_id,c.category_id, b.brand_name AS brand, c.name AS category, p.imageURL FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN product_images pi ON p.product_id = pi.product_id GROUP BY p.product_id");
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -43,7 +43,7 @@ public class ProductDAO {
 			product.setPrice(rs.getDouble("price"));
 			product.setDescription(rs.getString("description"));
 			product.setStock(rs.getInt("stock"));
-			product.setImageUrl(rs.getString("image_url"));
+			product.setImageURL(rs.getString("imageURL"));
 			product.setRating(rs.getInt("rating"));
 			product.setBrandName(rs.getString("brand"));
 			product.setCategoryName(rs.getString("category"));
@@ -58,7 +58,7 @@ public class ProductDAO {
 		Product product = null;
 
 		PreparedStatement stmt = conn.prepareStatement(
-				"SELECT  p.product_id,p.name, p.price,p.description, p.stock,  p.rating, b.brand_name AS brand ,c.name AS category, pi.image_url FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN (SELECT product_id, MIN(image_url) AS image_url FROM product_images GROUP BY product_id) pi  ON p.product_id = pi.product_id WHERE p.product_id = ?");
+				"SELECT  p.product_id,p.name, p.price,p.description, p.stock,  p.rating, b.brand_name AS brand ,c.name AS category, p.imageURL FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN (SELECT product_id, MIN(image_url) AS image_url FROM product_images GROUP BY product_id) pi  ON p.product_id = pi.product_id WHERE p.product_id = ?");
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
@@ -71,7 +71,7 @@ public class ProductDAO {
 			product.setPrice(rs.getDouble("price"));
 			product.setDescription(rs.getString("description"));
 			product.setStock(rs.getInt("stock"));
-			product.setImageUrl(rs.getString("image_url"));
+			product.setImageURL(rs.getString("imageURL"));
 			product.setRating(rs.getInt("rating"));
 			product.setBrandName(rs.getString("brand"));
 			product.setCategoryName(rs.getString("category"));
@@ -131,19 +131,20 @@ public class ProductDAO {
 		boolean result = false;
 
 		try {
-
-			String query = "INSERT INTO products (name, price, description, stock, image_url, rating, brand, category_name) "
+			
+			String query = "INSERT INTO products (name, price, description, stock,imageURL, rating, brand_id, category_id ) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, p.getName());
 			stmt.setDouble(2, p.getPrice());
 			stmt.setString(3, p.getDescription());
 			stmt.setInt(4, p.getStock());
-			stmt.setString(5, p.getImageUrl());
+			stmt.setString(5, p.getImageURL());
 			stmt.setInt(6, p.getRating());
 			stmt.setInt(7, p.getBrand());
 			stmt.setInt(8, p.getCategory());
 			result = stmt.executeUpdate() > 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -152,7 +153,7 @@ public class ProductDAO {
 	}
 
 	public boolean updateProduct(Product p) throws SQLException {
-		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand=?, category=?, rating=?, image_url=? WHERE id=?";
+		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand=?, category=?, rating=?, imageURL=? WHERE id=?";
 		PreparedStatement stmt = conn.prepareStatement(query);
 		stmt.setString(1, p.getName());
 		stmt.setString(2, p.getDescription());
@@ -160,11 +161,19 @@ public class ProductDAO {
 		stmt.setInt(4, p.getStock());
 		stmt.setInt(6, p.getCategory());
 		stmt.setDouble(7, p.getRating());
-		stmt.setString(8, p.getImageUrl());
+		stmt.setString(8, p.getImageURL());
 		stmt.setInt(9, p.getId());
 		return stmt.executeUpdate() > 0;
 	}
 
+	public boolean deleteProductById(int id) throws SQLException {
+	    String sql = "DELETE FROM products WHERE product_id = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        int rowsAffected = stmt.executeUpdate();
+	        return rowsAffected > 0; // true if a row was deleted
+	    }
+	}
 	public List<Product> getFilteredProducts(String categoryId, String brandId, Integer minPrice, Integer maxPrice,
 			Integer minRating) throws SQLException {
 		   List<Product> products = new ArrayList<>();

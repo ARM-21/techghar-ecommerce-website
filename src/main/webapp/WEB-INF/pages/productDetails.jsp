@@ -3,13 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%
-    int productId = Integer.parseInt(request.getParameter("id"));
-    ProductDAO dao = new ProductDAO();
-    Product product = dao.getProductById(productId);
-    request.setAttribute("product", product);
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +13,7 @@
 
     <div class="product-detail-container">
         <div class="product-image">
-            <img src="<c:out value="${product.imageUrl}" />" alt="<c:out value="${product.name}" />">
+            <img src="<c:out value="${product.imageURL}" />" alt="<c:out value="${product.name}" />">
         </div>
         <div class="product-info">
             <h1><c:out value="${product.name}" /></h1>

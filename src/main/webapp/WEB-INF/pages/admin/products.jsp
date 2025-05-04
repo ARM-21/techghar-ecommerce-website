@@ -5,8 +5,6 @@
 <html>
 <head>
 <title>Products Management</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/admin-products.css" />
 <style>
 /* admin-products.css */
 * {
@@ -367,7 +365,7 @@ hr {
 		<c:if test="${addNewProduct == true}">
 			<div class="add-product-form">
 				<h2>Add New Product</h2>
-				<form method="post" action="save-product">
+				<form method="post" action="save-product" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="name">Product Name</label> <input type="text"
 							name="name" required />
@@ -413,8 +411,8 @@ hr {
 					</div>
 
 					<div class="form-group">
-						<label for="imageUrl">Image URL</label> <input type="text"
-							name="imageUrl" required />
+						<label for="imageUrl">Choose An Image</label> <input type="file"
+							name="imageFile"  required />
 					</div>
 
 					<button type="submit" class="save-btn">💾 Save Product</button>
@@ -436,7 +434,7 @@ hr {
 
 					<!-- Product Image -->
 					<div class="product-image">
-						<img src="${product.imageUrl}" alt="${product.name}" />
+						<img src="${product.imageURL}" alt="${product.name}" />
 					</div>
 
 					<div class="info">
@@ -466,7 +464,7 @@ hr {
 
 					<div class="actions">
 						<a href="admin-update?id=${product.id}" class="edit">✏️</a> 
-						<a href="product-delete?id=${product.id}" class="delete" onclick="return confirmDelete(this);">🗑️</a>
+						<form action="product-delete?id=${product.id}" method="post" class="delete"> <button type="submit">Delete🗑️</button></form>
 
 					</div>
 				</div>
@@ -487,11 +485,20 @@ hr {
             alert.style.display = 'none';
         }
     }, 4000);
-    function confirmDelete(link) {
+   async function confirmDelete(link,id) {
         const confirmed = confirm("⚠️ Are you sure you want to delete this product?");
         if (confirmed) {
-         
-            window.location.href = link.href;
+        const response = await fetch(`http://localhost:8080/product-delete?id=${id}`, {
+        	method:"delete"
+        })
+        const data = await response.text()
+        console.log(data)
+        if(response.status == 200){
+        	window.alert("Product Deleted Successfully");
+        }
+        else{
+        	window.alert(" Deletion unSuccessfully");
+        }
         }
         return false; 
     }

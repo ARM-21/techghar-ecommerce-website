@@ -1,20 +1,29 @@
 package com.techghar.model;
 
+import javax.servlet.http.Part;
+
 public class Product {
     private int id;
     private String name;
     private double price;
     private String description;
     private int stock;
-    private String imageUrl;
+    private String imageURL;
     private int rating;
     private int brand;
     private String brandName;
     private String categoryName;
     private int category;
     private String createdAt;
+    private Part imageBinaryContent;
     
-    public String getBrandName() {
+    public Part getImageBinaryContent() {
+		return imageBinaryContent;
+	}
+	public void setImageBinaryContent(Part imageBinaryContent) {
+		this.imageBinaryContent = imageBinaryContent;
+	}
+	public String getBrandName() {
 		return brandName;
 	}
 	public void setBrandName(String brandName) {
@@ -39,7 +48,7 @@ public class Product {
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
-		this.imageUrl = imageUrl;
+		this.imageURL = imageUrl;
 		this.rating = rating;
 		this.brand = brand;
 		this.category = category;
@@ -94,11 +103,11 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImageURL() {
+		return imageURL;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImageURL(String imageUrl) {
+		this.imageURL = imageUrl;
 	}
 	public String getCreatedAt() {
 		return createdAt;

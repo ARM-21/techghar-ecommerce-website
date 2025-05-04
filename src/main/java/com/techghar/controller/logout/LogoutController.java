@@ -1,4 +1,4 @@
-package com.techghat.controller.logout;
+package com.techghar.controller.logout;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
