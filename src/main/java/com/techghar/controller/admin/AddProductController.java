@@ -16,10 +16,9 @@ import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
 import com.techghar.model.Category;
 import com.techghar.model.Brand;
-/**
- * Servlet implementation class AddProductController
- */
-@WebServlet(asyncSupported = true, urlPatterns = {"/add-product","/save-product"})
+
+
+@WebServlet(asyncSupported = true, urlPatterns = {"/add-product"})
 public class AddProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

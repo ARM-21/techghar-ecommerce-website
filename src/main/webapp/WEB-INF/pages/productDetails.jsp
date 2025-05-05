@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%
-    int productId = Integer.parseInt(request.getParameter("id"));
-    ProductDAO dao = new ProductDAO();
-    Product product = dao.getProductById(productId);
-    request.setAttribute("product", product);
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +38,7 @@
             </c:forEach>
 
             <c:if test="${product.stock > 0}">
-                <form action="add-to-cart" method="post">
+                <form action="/add-to-cart" method="post">
                     <input type="hidden" name="productId" value="${product.id}" />
                     <label for="quantity" class="form-label">Quantity:</label>
                    <input type="number" name="quantity" id="quantity" class="form-control w-25" 
