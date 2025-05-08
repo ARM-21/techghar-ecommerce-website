@@ -15,7 +15,7 @@ import com.techghar.model.CarouselItem;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/home" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/home","/products" })
 public class GetHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,16 @@ public class GetHomeServlet extends HttpServlet {
 			CarouselDAO carouselDAO = new CarouselDAO();
 			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
 			System.out.println("Database Connected Successfully");
-			request.setAttribute("carouselItems", carouselItems);
+			System.out.println(request.getRequestURI());
+			if(request.getRequestURI().equals("/products")) {
+				request.setAttribute("activePage", "products");	
+			}
+			
+			else {
+				request.setAttribute("carouselItems", carouselItems);
+				request.setAttribute("activePage", "home");
+			}
+			
 			// product data
 			ProductDAO productDAO = new ProductDAO();
 			ArrayList<Product> products = productDAO.getAllProducts();

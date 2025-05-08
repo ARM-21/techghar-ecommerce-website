@@ -28,6 +28,7 @@ import com.techghar.model.Brand;
 
 @WebServlet(asyncSupported = true, urlPatterns = { "/add-product", "/save-product" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
+
 public class AddProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -89,6 +90,7 @@ public class AddProductController extends HttpServlet {
 			product.setBrand(Integer.parseInt(request.getParameter("brandId")));
 			product.setCategory(Integer.parseInt(request.getParameter("categoryId")));
 			product.setDescription(request.getParameter("description"));
+			product.setImageURL(request.getParameter("imageUrl"));
 			product.setStock(Integer.parseInt(request.getParameter("stock")));
 			product.setRating(Integer.parseInt(request.getParameter("rating")));
 

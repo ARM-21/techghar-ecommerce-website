@@ -13,7 +13,8 @@ import com.techghar.model.Product;
 /**
  * Servlet implementation class GetProductDetailsServlet
  */
-@WebServlet("/product-details")
+
+@WebServlet(asyncSupported = true, urlPatterns = { "/product-details"})
 public class GetProductDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

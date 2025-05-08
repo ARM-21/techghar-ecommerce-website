@@ -18,11 +18,12 @@ public class AuthenticatorFilter implements Filter {
     };
 
     private static final String[] PUBLIC_PAGES = {
-        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER, "/uploadPhoto"
+        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER,"/uploadPhoto", "/about", "/products"
+
     };
 
     private static final String[] USER_PAGES = {
-        "/user-profile", "/checkout", "/cartlist", "/orderlist", "/update-profile", "/update-profile-post"
+        "/user-profile", "/checkout", "/cart", "/orderlist", "/update-profile", "/update-profile-post","/add-to-cart","/RemoveFromCart", "/Cartquantity"
     };
 
     private static final String[] ADMIN_PAGES = {

@@ -1,3 +1,4 @@
+
 # Maven target directory (compiled files)
 
 target/
@@ -45,3 +46,4 @@ Thumbs.db
 # Ignore environment-specific files
 
 .env
+

@@ -29,7 +29,7 @@ public class ProductDAO {
 		ArrayList<Product> productList = new ArrayList<Product>();
 
 		PreparedStatement stmt = conn.prepareStatement(
-				"SELECT p.product_id, p.name, p.price, p.description, p.stock,p.created_at, pi.image_url, p.rating,b.brand_id,c.category_id, b.brand_name AS brand, c.name AS category, p.imageURL FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN product_images pi ON p.product_id = pi.product_id GROUP BY p.product_id");
+				"SELECT p.product_id, p.name, p.price, p.description, p.stock, p.created_at, p.imageURL, p.rating,b.brand_id,c.category_id, b.brand_name AS brand, c.name AS category FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id  GROUP BY p.product_id");
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -37,7 +37,7 @@ public class ProductDAO {
 //					rs.getString("description"), rs.getInt("stock"), rs.getString("image_url"), rs.getInt("rating"),
 //					rs.getInt("brand_id"), rs.getInt("category_id"));
 //			p.setCreatedAt(rs.getString("created_at"));
-			Product product = new Product();		
+			Product product = new Product();
 			product.setId(rs.getInt("product_id"));
 			product.setName(rs.getString("name"));
 			product.setPrice(rs.getDouble("price"));
@@ -58,14 +58,14 @@ public class ProductDAO {
 		Product product = null;
 
 		PreparedStatement stmt = conn.prepareStatement(
-				"SELECT  p.product_id,p.name, p.price,p.description, p.stock,  p.rating, b.brand_name AS brand ,c.name AS category, p.imageURL FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id LEFT JOIN (SELECT product_id, MIN(image_url) AS image_url FROM product_images GROUP BY product_id) pi  ON p.product_id = pi.product_id WHERE p.product_id = ?");
+				"SELECT  p.product_id,p.name, p.price,p.description, p.stock,  p.rating, b.brand_name AS brand ,c.name AS category, p.imageURL FROM products p JOIN brands b ON p.brand_id = b.brand_id JOIN categories c ON p.category_id = c.category_id  WHERE p.product_id = ?");
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
 		if (rs.next()) {
 			System.out.println(rs.getString("brand"));
 			System.out.println(rs.getString("category"));
-			product = new Product();		
+			product = new Product();
 			product.setId(rs.getInt("product_id"));
 			product.setName(rs.getString("name"));
 			product.setPrice(rs.getDouble("price"));
@@ -131,8 +131,8 @@ public class ProductDAO {
 		boolean result = false;
 
 		try {
-			
-			String query = "INSERT INTO products (name, price, description, stock,imageURL, rating, brand_id, category_id ) "
+			String query = "INSERT INTO products (name, price, description, stock, imageURL, rating, brand, category_name) "
+
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, p.getName());
@@ -176,36 +176,36 @@ public class ProductDAO {
 	}
 	public List<Product> getFilteredProducts(String categoryId, String brandId, Integer minPrice, Integer maxPrice,
 			Integer minRating) throws SQLException {
-		   List<Product> products = new ArrayList<>();
+		List<Product> products = new ArrayList<>();
 
-		    String sql = "SELECT * FROM products WHERE category_id = ? AND brand_id = ?";
-		    
-		    if (minPrice != null) {
-		        sql += " AND price >= ?";
-		    }
-		    if (maxPrice != null) {
-		        sql += " AND price <= ?";
-		    }
-		    if (minRating != null && minRating > 0) {
-		        sql += " AND rating >= ?";
-		    }
+		String sql = "SELECT * FROM products WHERE category_id = ? AND brand_id = ?";
 
-		    PreparedStatement stmt = conn.prepareStatement(sql);
+		if (minPrice != null) {
+			sql += " AND price >= ?";
+		}
+		if (maxPrice != null) {
+			sql += " AND price <= ?";
+		}
+		if (minRating != null && minRating > 0) {
+			sql += " AND rating >= ?";
+		}
 
-		    // Setting parameters in correct order
-		    int index = 1;
-		    stmt.setInt(index++, Integer.parseInt(categoryId));
-		    stmt.setInt(index++, Integer.parseInt(brandId));
+		PreparedStatement stmt = conn.prepareStatement(sql);
 
-		    if (minPrice != null) {
-		        stmt.setInt(index++, minPrice);
-		    }
-		    if (maxPrice != null) {
-		        stmt.setInt(index++, maxPrice);
-		    }
-		    if (minRating != null && minRating > 0) {
-		        stmt.setInt(index++, minRating);
-		    }
+		// Setting parameters in correct order
+		int index = 1;
+		stmt.setInt(index++, Integer.parseInt(categoryId));
+		stmt.setInt(index++, Integer.parseInt(brandId));
+
+		if (minPrice != null) {
+			stmt.setInt(index++, minPrice);
+		}
+		if (maxPrice != null) {
+			stmt.setInt(index++, maxPrice);
+		}
+		if (minRating != null && minRating > 0) {
+			stmt.setInt(index++, minRating);
+		}
 
 		// Execute the query
 		ResultSet rs = stmt.executeQuery();

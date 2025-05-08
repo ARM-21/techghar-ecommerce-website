@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Out"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,6 +13,25 @@
 
 <style>
 /* Add these styles to your header.css */
+
+  .cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 1;
+}
+    
 .user-dropdown {
 	position: relative;
 	display: inline-block;
@@ -62,6 +82,12 @@
 	display: flex;
 	gap: 10px;
 }
+.nav-item.active {
+    font-weight: bold;
+    color: #007bff; 
+    background-color: blue;
+}
+
 
 @media ( max-width : 768px) {
 	.user-dropdown-content {
@@ -81,11 +107,13 @@
 		gap: 10px;
 		margin-top: 15px;
 	}
+	
 }
 </style>
 </head>
 
 <body>
+
 
 	<!-- Navigation Bar -->
 	<nav class="navbar">
@@ -94,21 +122,35 @@
 				src="${pageContext.request.contextPath}/images/logo.svg"
 				alt="TechGhar Logo">
 			</a>
+			
 			<button class="navbar-toggler" id="navbarToggler">
 				<span class="icon icon-bars"></span>
 			</button>
 			<div class="navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="products">Products</a></li>
-					<li class="nav-item"><a class="nav-link" href="about">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+					<li class="nav-item ${activePage == 'home' ? 'active' : ''}">
+						<a class="nav-link" href="home">Home</a>
+					</li>
+					<li class="nav-item ${activePage == 'products' ? 'active' : ''}">
+						<a class="nav-link" href="products">Products</a>
+					</li>
+					<li class="nav-item ${activePage == 'about' ? 'active' : ''}">
+						<a class="nav-link" href="about">About</a>
+					</li>
+					<li class="nav-item ${activePage == 'contact' ? 'active' : ''}">
+						<a class="nav-link" href="contact">Contact</a>
+					</li>
 				</ul>
+
 				<div class="nav-icons">
 					<a href="search-catalog" title="Search"> <span
 						class="icon icon-search"></span></a>
 					<c:if test="${not empty sessionScope.username }">
-						<a href="view-cart" title="Cart"><span class="icon icon-cart"></span></a>
+						 <a href="/cart" title="Cart" class="cart-icon-wrapper">
+					    <span class="icon icon-cart"></span>
+					    <span class="cart-count">${cartCount}</span>
+					</a>
+				
 					</c:if>
 
 					<c:choose>
