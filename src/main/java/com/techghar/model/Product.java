@@ -1,5 +1,7 @@
 package com.techghar.model;
 
+import javax.servlet.http.Part;
+
 public class Product {
     private int id;
     private String name;
@@ -13,8 +15,15 @@ public class Product {
     private String categoryName;
     private int category;
     private String createdAt;
+    private Part imageBinaryContent;
     
-    public String getBrandName() {
+    public Part getImageBinaryContent() {
+		return imageBinaryContent;
+	}
+	public void setImageBinaryContent(Part imageBinaryContent) {
+		this.imageBinaryContent = imageBinaryContent;
+	}
+	public String getBrandName() {
 		return brandName;
 	}
 	public void setBrandName(String brandName) {
@@ -99,6 +108,7 @@ public class Product {
 	}
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+
 	}
 	public String getCreatedAt() {
 		return createdAt;

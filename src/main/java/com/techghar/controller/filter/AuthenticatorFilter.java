@@ -18,7 +18,8 @@ public class AuthenticatorFilter implements Filter {
     };
 
     private static final String[] PUBLIC_PAGES = {
-        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER, "/about", "/products"
+        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER,"/uploadPhoto", "/about", "/products"
+
     };
 
     private static final String[] USER_PAGES = {
@@ -28,7 +29,7 @@ public class AuthenticatorFilter implements Filter {
     private static final String[] ADMIN_PAGES = {
         "/dashboard", "/admin-orders", "/admin-users", "/admin-products",
         "/admin-update", "/delete-product", "/add-product", "/manage-orders" , "/save-product","/admin-profile","/update-admin-profile","/update-ad-profile-post" 
-        ,"/view-stat", "/view-categories-admin"
+        ,"/view-stat", "/view-categories-admin", "product-delete"
     };
 
     @Override

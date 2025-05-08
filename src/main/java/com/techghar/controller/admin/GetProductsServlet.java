@@ -43,7 +43,7 @@ public class GetProductsServlet extends HttpServlet {
 
 			request.setAttribute("products", products);
 			request.setAttribute("activePage", "admin-products");
-			request.setAttribute("pageContent", "./component/products.jsp");
+			request.setAttribute("pageContent", "./products.jsp");
 			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
 		} catch (ServletException | IOException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

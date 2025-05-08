@@ -131,8 +131,8 @@ public class ProductDAO {
 		boolean result = false;
 
 		try {
-
 			String query = "INSERT INTO products (name, price, description, stock, imageURL, rating, brand, category_name) "
+
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, p.getName());
@@ -144,6 +144,7 @@ public class ProductDAO {
 			stmt.setInt(7, p.getBrand());
 			stmt.setInt(8, p.getCategory());
 			result = stmt.executeUpdate() > 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -165,6 +166,14 @@ public class ProductDAO {
 		return stmt.executeUpdate() > 0;
 	}
 
+	public boolean deleteProductById(int id) throws SQLException {
+	    String sql = "DELETE FROM products WHERE product_id = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        int rowsAffected = stmt.executeUpdate();
+	        return rowsAffected > 0; // true if a row was deleted
+	    }
+	}
 	public List<Product> getFilteredProducts(String categoryId, String brandId, Integer minPrice, Integer maxPrice,
 			Integer minRating) throws SQLException {
 		List<Product> products = new ArrayList<>();
