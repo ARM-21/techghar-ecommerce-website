@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -479,7 +480,7 @@
                         <th style="padding: 1rem; text-align: left;">Cancel</th>
                     </tr>
                 </thead>
-               <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+            
 <tbody>
     <c:choose>
         <c:when test="${not empty cartProducts}">

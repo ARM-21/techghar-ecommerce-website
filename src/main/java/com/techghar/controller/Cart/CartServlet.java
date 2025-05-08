@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.techghar.DAO.CartDAO;
 import com.techghar.model.CartItem;
+import com.techghar.utility.SessionUtil;
 
 
 
@@ -25,16 +26,16 @@ public class CartServlet extends HttpServlet {
 	    try {
 	      
 	      
-	      
-	        int userId = 6;
+	    	int userId = (int) SessionUtil.getAttribute(request,"id");
 
 	       
 	        CartDAO cartDAO = new CartDAO();
 	        List<CartItem> cartItems = cartDAO.getCartItems(userId);
 	        double cartTotal = cartDAO.getCartTotal(userId);
-
+	        int cartCount = cartDAO.getCartItemCount(userId);
 	        
 	        request.setAttribute("cartProducts", cartItems);
+	        
 	        request.setAttribute("cartTotal", cartTotal);
 	        
 	       

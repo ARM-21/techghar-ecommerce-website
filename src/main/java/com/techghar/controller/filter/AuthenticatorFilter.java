@@ -22,7 +22,7 @@ public class AuthenticatorFilter implements Filter {
     };
 
     private static final String[] USER_PAGES = {
-        "/user-profile", "/checkout", "/cart", "/orderlist", "/update-profile", "/update-profile-post","/add-to-cart","/RemoveFromCart"
+        "/user-profile", "/checkout", "/cart", "/orderlist", "/update-profile", "/update-profile-post","/add-to-cart","/RemoveFromCart", "/Cartquantity"
     };
 
     private static final String[] ADMIN_PAGES = {

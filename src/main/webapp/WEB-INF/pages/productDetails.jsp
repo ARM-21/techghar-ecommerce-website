@@ -15,7 +15,7 @@
 
     <div class="product-detail-container">
         <div class="product-image">
-            <img src="<c:out value="${product.imageUrl}" />" alt="<c:out value="${product.name}" />">
+            <img src="<c:out value="${product.imageURL}" />" alt="<c:out value="${product.name}" />">
         </div>
         <div class="product-info">
             <h1><c:out value="${product.name}" /></h1>

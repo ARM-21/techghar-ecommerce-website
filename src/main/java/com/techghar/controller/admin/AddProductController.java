@@ -67,7 +67,7 @@ public class AddProductController extends HttpServlet {
 			product.setBrand(Integer.parseInt(request.getParameter("brand")));
 			product.setCategory(Integer.parseInt(request.getParameter("category")));
 			product.setDescription(request.getParameter("description"));
-			product.setImageUrl(request.getParameter("imageUrl"));
+			product.setImageURL(request.getParameter("imageUrl"));
 			product.setStock(Integer.parseInt(request.getParameter("stock")));
 			product.setRating(Integer.parseInt(request.getParameter("rating")));
 			 Boolean productAddedSuccessfully = dao.addProduct(product);

@@ -124,5 +124,22 @@ public class CartDAO {
         
         return 0.0;
     }
+    
+    public boolean incrementQuantity(int userId, int productId) throws SQLException {
+        String sql = "UPDATE cart SET quantity = quantity + 1 WHERE user_id = ? AND product_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, productId);
+        return stmt.executeUpdate() > 0;
+    }
+    
+    public boolean decrementQuantity(int userId, int productId) throws SQLException {
+        String sql = "UPDATE cart SET quantity = quantity - 1 WHERE user_id = ? AND product_id = ? AND quantity > 1";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, productId);
+        return stmt.executeUpdate() > 0;
+    }
+    
 
 }

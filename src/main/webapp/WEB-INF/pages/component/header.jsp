@@ -13,6 +13,25 @@
 
 <style>
 /* Add these styles to your header.css */
+
+  .cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 1;
+}
+    
 .user-dropdown {
 	position: relative;
 	display: inline-block;
@@ -127,7 +146,11 @@
 					<a href="search-catalog" title="Search"> <span
 						class="icon icon-search"></span></a>
 					<c:if test="${not empty sessionScope.username }">
-						<a href="/cart" title="Cart"><span class="icon icon-cart"></span></a>
+						 <a href="/cart" title="Cart" class="cart-icon-wrapper">
+					    <span class="icon icon-cart"></span>
+					    <span class="cart-count">${cartCount}</span>
+					</a>
+				
 					</c:if>
 
 					<c:choose>

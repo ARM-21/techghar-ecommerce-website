@@ -400,7 +400,7 @@ body {
 				<div class="product-card">
 					<div class="product-img-container">
 						<a href="product-details?id=${product.id}"> <img
-							src="${product.imageUrl}" alt="${product.name}"
+							src="${product.imageURL}" alt="${product.name}"
 							class="product-img" />
 						</a>
 					</div>
