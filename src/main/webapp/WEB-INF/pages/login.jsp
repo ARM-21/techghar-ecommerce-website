@@ -378,11 +378,11 @@ body {
 				<div class="alert alert-danger alert-dismissible fade show"
 					role="alert">
 					${message}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close">&times;</button>
+					<button type="button" class="btn-close" 
+						>&times;</button>
 				</div>
 			</c:if>
-            <form action="${pageContext.request.contextPath}/login" method="POST">
+            <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="email" class="form-label">Email Address</label>
                    <div class="input-group" >
@@ -404,7 +404,7 @@ body {
                     <a href="#" class="forgot-password">Forgot Password?</a>
                 </div>
                 <button type="submit" class="login-button">Login</button>
-         
+         </form>
             <div class="register-link">
                 <p>Don't have an account? <a href="register">Register Now</a></p>
             </div>
