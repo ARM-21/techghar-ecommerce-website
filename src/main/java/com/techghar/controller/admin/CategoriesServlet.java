@@ -54,6 +54,12 @@ public class CategoriesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String category = (String) request.getAttribute("categoryName");
+		
+		
+		
+		
 		doGet(request, response);
 	}
 
