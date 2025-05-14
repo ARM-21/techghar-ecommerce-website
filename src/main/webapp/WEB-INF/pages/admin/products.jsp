@@ -25,8 +25,6 @@ body {
 	padding: 20px;
 	transition: all 0.3s ease;
 	max-width: 900px;
-
-
 }
 
 .add-btn {
@@ -82,7 +80,7 @@ body {
 	flex-wrap: wrap;
 	gap: 20px;
 	margin-bottom: 30px;
-	justify-content:center;
+	justify-content: center;
 }
 
 .product-card {
@@ -92,7 +90,7 @@ body {
 	overflow: hidden;
 	position: relative;
 	transition: transform 0.3s, box-shadow 0.3s;
-	max-width:300px;
+	max-width: 300px;
 }
 
 .product-card:hover {
@@ -354,6 +352,16 @@ hr {
 
 	<div class="container">
 
+
+		<%
+		String message = request.getParameter("message");
+		if (message != null && !message.isEmpty()) {
+		%>
+		<div style="color: green;"  class= "deleted-message"><%=message%></div>
+		<%
+		}
+		%>
+
 		<c:if test="${not empty message}">
 			<div class="alert ${messageType}">${message}</div>
 		</c:if>
@@ -365,7 +373,8 @@ hr {
 		<c:if test="${addNewProduct == true}">
 			<div class="add-product-form">
 				<h2>Add New Product</h2>
-				<form method="post" action="save-product" enctype="multipart/form-data">
+				<form method="post" action="save-product"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="name">Product Name</label> <input type="text"
 							name="name" required />
@@ -412,7 +421,7 @@ hr {
 
 					<div class="form-group">
 						<label for="imageUrl">Choose An Image</label> <input type="file"
-							name="imageFile"  required />
+							name="imageFile" required />
 					</div>
 
 					<button type="submit" class="save-btn">💾 Save Product</button>
@@ -463,8 +472,11 @@ hr {
 					</div>
 
 					<div class="actions">
-						<a href="admin-update?id=${product.id}" class="edit">✏️</a> 
-						<form action="product-delete?id=${product.id}" method="post" class="delete"> <button type="submit">Delete🗑️</button></form>
+						<a href="admin-update?id=${product.id}" class="edit">✏️</a>
+						<form action="product-delete?id=${product.id}" method="post"
+							class="delete">
+							<button type="submit">Delete🗑️</button>
+						</form>
 
 					</div>
 				</div>
@@ -485,23 +497,28 @@ hr {
             alert.style.display = 'none';
         }
     }, 4000);
-   async function confirmDelete(link,id) {
-        const confirmed = confirm("⚠️ Are you sure you want to delete this product?");
-        if (confirmed) {
-        const response = await fetch(`http://localhost:8080/product-delete?id=${id}`, {
-        	method:"delete"
-        })
-        const data = await response.text()
-        console.log(data)
-        if(response.status == 200){
-        	window.alert("Product Deleted Successfully");
-        }
-        else{
-        	window.alert(" Deletion unSuccessfully");
-        }
-        }
-        return false; 
+    
+    let deleteProduct = document.querySelector(".deleted-message")
+    function deleteProductFunc(){
+    	if(deleteProduct){
+    		window.alert("deleted Successfully")
+    		window.location.href = "/admin-products"
+    		
+    		
+    			setTimeout(()=>{
+    				
+    				deleteProduct.style.display = "none";
+    			},3000)
+    			
+    	}
+    	
+    	
     }
+    deleteProductFunc()
+    
+    
+    
+
 </script>
 </body>
 

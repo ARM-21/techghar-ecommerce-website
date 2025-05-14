@@ -148,7 +148,7 @@
 
 								<div class="terms-checkbox">
 									<input class="checkbox-input" type="checkbox" id="termsCheck"
-										requestuired> <label for="termsCheck"> I agree
+										required> <label for="termsCheck"> I agree
 										to the <a href="#" class="terms-link">Terms of Service</a> and
 										<a href="#" class="terms-link">Privacy Policy</a>
 									</label>

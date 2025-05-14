@@ -1,4 +1,4 @@
-package com.techghar.controller.Cart;
+package com.techghar.controller.cart;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class RemoveCartItemServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Integer userId = 6; 
+        Integer userId = 10; 
 
         try {
             int productId = Integer.parseInt(request.getParameter("id"));
