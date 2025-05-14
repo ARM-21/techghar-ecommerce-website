@@ -131,7 +131,7 @@ public class ProductDAO {
 		boolean result = false;
 
 		try {
-			String query = "INSERT INTO products (name, price, description, stock, imageURL, rating, brand, category_name) "
+			String query = "INSERT INTO products (name, price, description, stock, imageURL, rating, brand_id, category_id) "
 
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -153,7 +153,7 @@ public class ProductDAO {
 	}
 
 	public boolean updateProduct(Product p) throws SQLException {
-		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand=?, category=?, rating=?, imageURL=? WHERE id=?";
+		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand_id=?, category_id=?, rating=?, imageURL=? WHERE id=?";
 		PreparedStatement stmt = conn.prepareStatement(query);
 		stmt.setString(1, p.getName());
 		stmt.setString(2, p.getDescription());

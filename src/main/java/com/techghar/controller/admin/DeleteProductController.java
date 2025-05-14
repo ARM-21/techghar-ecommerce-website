@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,8 @@ public class DeleteProductController extends HttpServlet {
 				System.out.println("product is deleted "+ isDeleted);
 				
 				if(isDeleted) {
-					response.sendRedirect("products.jsp?message=Product+deleted");	;
+
+					response.sendRedirect("admin-products?message=Product+deleted");
 				}
 			}
 			

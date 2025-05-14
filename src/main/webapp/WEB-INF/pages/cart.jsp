@@ -503,7 +503,8 @@
                     </td>
                     <td style="padding: 1rem;">$${cartItem.product.price * cartItem.quantity}</td>
                     <td style="padding: 1rem;">
-                        <a href="RemoveFromCart?id=${cartItem.product.id}" class="btn btn-sm btn-danger">Remove</a>
+                    ${cartItem.product.id}
+                        <a href="RemoveFromCart?id=${cartItem.product.id}" class="btn btn-sm btn-danger">Remove </a>
                     </td>
                 </tr>
             </c:forEach>
