@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.techghar.DAO.CartDAO;
+import com.techghar.utility.SessionUtil;
 
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/RemoveFromCart"})
@@ -34,7 +35,8 @@ public class RemoveCartItemServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Integer userId = 6; 
+        int userId = (int) SessionUtil.getAttribute(request,"id");
+        System.out.println(userId);
 
         try {
             int productId = Integer.parseInt(request.getParameter("id"));

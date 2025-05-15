@@ -39,10 +39,7 @@
             <c:if test="${product.stock > 0}">
                 <form action="/add-to-cart" method="post">
                     <input type="hidden" name="productId" value="${product.id}" />
-                    <label for="quantity" class="form-label">Quantity:</label>
-                   <input type="number" name="quantity" id="quantity" class="form-control w-25" 
-                           min="1" max="${product.stock}" value="1" required 
-                           onchange="validateQuantity(this)" />
+           
                     <button type="submit" class="add-to-cart">Add to Cart</button>
                 </form>
             </c:if>
@@ -59,7 +56,7 @@ function validateQuantity(input) {
     var maxStock = parseInt(input.max);
     var value = parseInt(input.value);
     if (value > maxStock) {
-        input.value = maxStock;
+        input.value = 0;
     }
 }
 </script>

@@ -25,8 +25,6 @@ body {
 	padding: 20px;
 	transition: all 0.3s ease;
 	max-width: 900px;
-
-
 }
 
 .add-btn {
@@ -82,7 +80,7 @@ body {
 	flex-wrap: wrap;
 	gap: 20px;
 	margin-bottom: 30px;
-	justify-content:center;
+	justify-content: center;
 }
 
 .product-card {
@@ -92,7 +90,7 @@ body {
 	overflow: hidden;
 	position: relative;
 	transition: transform 0.3s, box-shadow 0.3s;
-	max-width:300px;
+	max-width: 300px;
 }
 
 .product-card:hover {
@@ -357,6 +355,10 @@ hr {
 		<c:if test="${not empty message}">
 			<div class="alert ${messageType}">${message}</div>
 		</c:if>
+		<c:if test="${not empty param.message}">
+			<div class="alert alert-success">${param.message}</div>
+		</c:if>
+
 
 		<div class="prod-management-header">
 			<h1>Product Management</h1>
@@ -365,7 +367,8 @@ hr {
 		<c:if test="${addNewProduct == true}">
 			<div class="add-product-form">
 				<h2>Add New Product</h2>
-				<form method="post" action="save-product" enctype="multipart/form-data">
+				<form method="post" action="save-product"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="name">Product Name</label> <input type="text"
 							name="name" required />
@@ -412,7 +415,7 @@ hr {
 
 					<div class="form-group">
 						<label for="imageUrl">Choose An Image</label> <input type="file"
-							name="imageFile"  required />
+							name="imageFile" required />
 					</div>
 
 					<button type="submit" class="save-btn">💾 Save Product</button>
@@ -423,9 +426,12 @@ hr {
 
 		<c:if test="${empty addNewProduct}">
 			<div class="search-filter">
-				<input type="text" placeholder="Search products..." />
-				<button class="filter-btn">🔍 Filter</button>
+				<form method="get" action="admin-products">
+					<input type="text" name="search" placeholder="Search products..." />
+					<button type="submit" class="filter-btn">🔍</button>
+				</form>
 			</div>
+
 		</c:if>
 		<div class="product-list">
 			<c:forEach var="product" items="${products}">
@@ -463,8 +469,11 @@ hr {
 					</div>
 
 					<div class="actions">
-						<a href="admin-update?id=${product.id}" class="edit">✏️</a> 
-						<form action="product-delete?id=${product.id}" method="post" class="delete"> <button type="submit">Delete🗑️</button></form>
+						<a href="admin-update?id=${product.id}" class="edit">✏️</a>
+						<form action="product-delete?id=${product.id}" method="post"
+							class="delete">
+							<button type="submit">Delete🗑️</button>
+						</form>
 
 					</div>
 				</div>
@@ -483,8 +492,9 @@ hr {
         const alert = document.querySelector('.alert');
         if (alert) {
             alert.style.display = 'none';
+            window.location.href = '/admin-products'
         }
-    }, 4000);
+    }, 1000);
    async function confirmDelete(link,id) {
         const confirmed = confirm("⚠️ Are you sure you want to delete this product?");
         if (confirmed) {

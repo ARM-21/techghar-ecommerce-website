@@ -28,7 +28,7 @@ public class AuthenticatorFilter implements Filter {
 
     private static final String[] ADMIN_PAGES = {
         "/dashboard", "/admin-orders", "/admin-users", "/admin-products",
-        "/admin-update", "/delete-product", "/add-product", "/manage-orders" , "/save-product","/admin-profile","/update-admin-profile","/update-ad-profile-post" 
+        "/admin-update", "admin-update-save", "/delete-product", "/add-product", "/manage-orders" , "/save-product","/admin-profile","/update-admin-profile","/update-ad-profile-post" 
         ,"/view-stat", "/view-categories-admin", "product-delete"
     };
 

@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
+import com.techghar.utility.ImageUtility;
 import com.techghar.model.Category;
 import com.techghar.model.Brand;
 
@@ -96,7 +97,7 @@ public class AddProductController extends HttpServlet {
 
 			// for image uploading
 
-			String pathFile = fileWriter(request, response, image);
+			String pathFile = ImageUtility.fileWriter(request, response, image);
 			System.out.println(pathFile);
 
 			if (pathFile == null) {
@@ -116,7 +117,7 @@ public class AddProductController extends HttpServlet {
 			} else {
 				request.setAttribute("message", "❌ Failed to add product.");
 				request.setAttribute("messageType", "error");
-				return;
+				
 			}
 			
 			List<Brand> brands;
@@ -132,37 +133,11 @@ public class AddProductController extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
 
 		} catch (SQLException | ClassNotFoundException e) {
-			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Error Occured While Updating the Products");
+			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Error Occured While Adding the Products");
 			e.printStackTrace();
 		}
 
 	}
 
-	protected String fileWriter(HttpServletRequest request, HttpServletResponse response, Part image) {
-
-		try {
-			
-			System.out.println(image);
-			String fileName = image.getSubmittedFileName();
-			System.out.println(fileName);
-
-			String storePath = request.getServletContext().getRealPath("");
-			String filePath = "assets" + File.separator + "images" + File.separator + fileName;
-
-			System.out.println("storedpath" +storePath);
-			System.out.println("filepath"+filePath);
-			image.write(storePath + File.separator + filePath);
-
-			System.out.println("File uploaded");
-			return  filePath;
-			// TODO: Write respective DAO process to store all attributes and filePath to
-			// database
-
-		} catch (Exception e) {
-			System.out.println("File not uploaded");
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	
 }
