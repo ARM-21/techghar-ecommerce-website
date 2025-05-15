@@ -51,12 +51,9 @@ public class DeleteProductController extends HttpServlet {
 				System.out.println("product is deleted "+ isDeleted);
 				
 				if(isDeleted) {
-<<<<<<< HEAD
 
-					response.sendRedirect("admin-products?message=Product+deleted");
-=======
 					response.sendRedirect("admin-products?message=Product+deleted");	;
->>>>>>> manoj-1
+
 				}
 			}
 			

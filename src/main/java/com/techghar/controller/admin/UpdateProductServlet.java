@@ -72,12 +72,7 @@ public class UpdateProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		
-		
-	
-	}
-=======
+
 
 		 
 		try {
@@ -137,8 +132,6 @@ public class UpdateProductServlet extends HttpServlet {
 		    
 		}
 
-	
->>>>>>> manoj-1
 	
 	
 

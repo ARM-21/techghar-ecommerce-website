@@ -152,11 +152,7 @@ public class ProductDAO {
 	}
 
 	public boolean updateProduct(Product p) throws SQLException {
-<<<<<<< HEAD
-		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand_id=?, category_id=?, rating=?, imageURL=? WHERE id=?";
-=======
 		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand_id=?, category_id=?, rating=?, imageURL=? WHERE product_id=?";
->>>>>>> manoj-1
 		PreparedStatement stmt = conn.prepareStatement(query);
 		stmt.setString(1, p.getName());
 		stmt.setString(2, p.getDescription());
