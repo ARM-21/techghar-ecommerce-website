@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.techghar.DAO.CartDAO;
+import com.techghar.utility.SessionUtil;
 
 @WebServlet("/Cartquantity")
 public class CartQuantityServlet extends HttpServlet {
@@ -31,7 +32,7 @@ public class CartQuantityServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Integer userId = 6; 
+        int userId = (int) SessionUtil.getAttribute(request,"id");
 
         String action = request.getParameter("action");
         int productId = Integer.parseInt(request.getParameter("id"));

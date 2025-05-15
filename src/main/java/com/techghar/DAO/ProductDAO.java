@@ -72,7 +72,6 @@ public class ProductDAO {
 			product.setDescription(rs.getString("description"));
 			product.setStock(rs.getInt("stock"));
 			product.setImageURL(rs.getString("imageURL"));
-			product.setRating(rs.getInt("rating"));
 			product.setBrandName(rs.getString("brand"));
 			product.setCategoryName(rs.getString("category"));
 		}
@@ -153,12 +152,17 @@ public class ProductDAO {
 	}
 
 	public boolean updateProduct(Product p) throws SQLException {
+<<<<<<< HEAD
 		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand_id=?, category_id=?, rating=?, imageURL=? WHERE id=?";
+=======
+		String query = "UPDATE products SET name=?, description=?, price=?, stock=?, brand_id=?, category_id=?, rating=?, imageURL=? WHERE product_id=?";
+>>>>>>> manoj-1
 		PreparedStatement stmt = conn.prepareStatement(query);
 		stmt.setString(1, p.getName());
 		stmt.setString(2, p.getDescription());
 		stmt.setDouble(3, p.getPrice());
 		stmt.setInt(4, p.getStock());
+		stmt.setInt(5, p.getBrand());
 		stmt.setInt(6, p.getCategory());
 		stmt.setDouble(7, p.getRating());
 		stmt.setString(8, p.getImageURL());
@@ -222,6 +226,34 @@ public class ProductDAO {
 		}
 
 		return products;
+	}
+
+	public ArrayList<Product> searchProductsByName(String query) {
+	    ArrayList<Product> result = new ArrayList<>();
+	    String sql = "SELECT * FROM products WHERE name LIKE ?";
+	    try  {
+	         PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setString(1, "%" + query + "%");
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	        	Product product = new Product();
+				product.setId(rs.getInt("product_id"));
+				product.setName(rs.getString("name"));
+				product.setPrice(rs.getDouble("price"));
+				product.setDescription(rs.getString("description"));
+				product.setStock(rs.getInt("stock"));
+				product.setImageURL(rs.getString("imageURL"));
+				product.setRating(rs.getInt("rating"));
+				product.setBrandName(rs.getString("brand"));
+				product.setCategoryName(rs.getString("category"));
+				product.setCreatedAt(rs.getString("created_at"));
+				result.add(product);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
 
 }

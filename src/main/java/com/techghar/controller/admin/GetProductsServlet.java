@@ -39,8 +39,16 @@ public class GetProductsServlet extends HttpServlet {
 		try {
 
 			ProductDAO productDAO = new ProductDAO();
-			ArrayList<Product> products = productDAO.getAllProducts();
+			ArrayList<Product> products;
 
+
+		    String searchQuery = request.getParameter("search");
+		    if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+		        products = productDAO.searchProductsByName(searchQuery); // You implement this
+		    } else {
+		        products = productDAO.getAllProducts();
+		    }
+			
 			request.setAttribute("products", products);
 			request.setAttribute("activePage", "admin-products");
 			request.setAttribute("pageContent", "./products.jsp");

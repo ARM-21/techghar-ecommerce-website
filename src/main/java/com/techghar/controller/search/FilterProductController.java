@@ -13,16 +13,16 @@ import com.techghar.DAO.ProductDAO;
 import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
- * Servlet implementation class SearchController
+ * Servlet implementation class FilterProductController
  */
 @WebServlet("/search-catalog")
-public class SearchController extends HttpServlet {
+public class FilterProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchController() {
+    public FilterProductController() {
         super();
         // TODO Auto-generated constructor stub
     }

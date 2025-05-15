@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.techghar.DAO.CartDAO;
+import com.techghar.DAO.ProductDAO;
 import com.techghar.model.CartItem;
+import com.techghar.model.Product;
+import com.techghar.utility.SessionUtil;
 
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/add-to-cart"})
@@ -35,22 +38,21 @@ public class AddToCart  extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        Integer userId = 10;
+        int userId = (int) SessionUtil.getAttribute(request,"id");
         
     
         try {
          
             int productId = Integer.parseInt(request.getParameter("productId"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            
-         
-            boolean success = cartDAO.addToCart(userId, productId, quantity);
+//            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            ProductDAO prodDao = new ProductDAO();
+            Product product = prodDao.getProductById(productId);
+            boolean success = cartDAO.addToCart(userId, productId, 0);
             
             if (success) {
-                
-        
                 int cartCount = cartDAO.getCartItemCount(userId);
                 session.setAttribute("cartCount", cartCount);
+                session.setAttribute("maxStock", product.getStock());
             } else {
                 
                 session.setAttribute("errorMessage", "Failed to add product to cart.");
@@ -68,7 +70,10 @@ public class AddToCart  extends HttpServlet {
             e.printStackTrace();
             session.setAttribute("errorMessage", "Invalid input data");
             response.sendRedirect("error.jsp");
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
        
         
     }

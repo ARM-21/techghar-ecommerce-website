@@ -1,26 +1,35 @@
 package com.techghar.controller.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.Brand;
 import com.techghar.model.Category;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
+import com.techghar.utility.ImageUtility;
 
 /**
  * Servlet implementation class UpdateProductServlet
  */
 
-@WebServlet(asyncSupported = true, urlPatterns = {"/admin-update"})
+@WebServlet(asyncSupported = true, urlPatterns = {"/admin-update","/admin-update-save"})
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024,  // 1MB
+	    maxFileSize = 1024 * 1024 * 5,    // 5MB
+	    maxRequestSize = 1024 * 1024 * 10 // 10MB
+	)
 public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,10 +72,73 @@ public class UpdateProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		
 		
 	
 	}
+=======
+
+		 
+		try {
+			int productId = Integer.parseInt(request.getParameter("id"));
+			   // Get form fields
+		    String name = request.getParameter("name");
+		    String description = request.getParameter("description");
+		    double price = Double.parseDouble(request.getParameter("price"));
+		    int stock = Integer.parseInt(request.getParameter("stock"));
+		    int brandId = Integer.parseInt(request.getParameter("brandId"));
+		    int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		    Part image = request.getPart("imageFile");
+		  String filePath = ImageUtility.fileWriter(request, response, image);
+
+			if (filePath == null) {
+				request.setAttribute("message", "❌ Failed to Upload the product image.");
+				request.setAttribute("messageType", "error");
+
+			}
+			else {
+				// Now you can update the product in the database
+			    Product updatedProduct = new Product();
+			    updatedProduct.setName(name);
+			    updatedProduct.setDescription(description);
+			    updatedProduct.setPrice(price);
+			    updatedProduct.setStock(stock);
+			    updatedProduct.setBrand(brandId);
+			    updatedProduct.setCategory(categoryId);
+			    updatedProduct.setImageURL(filePath);
+			    updatedProduct.setId(productId);
+			    // Call your DAO method to update the product
+			    ProductDAO dao = new ProductDAO();
+			   Boolean productUpdatedSuccessfully;
+				productUpdatedSuccessfully = dao.updateProduct(updatedProduct);
+				
+				
+				System.out.println("product Added" + productUpdatedSuccessfully);
+				if (productUpdatedSuccessfully) {
+					request.setAttribute("message", "✅ Product added successfully!");
+					request.setAttribute("messageType", "success");
+					
+				} else {
+					request.setAttribute("message", "❌ Failed to add product.");
+					request.setAttribute("messageType", "error");
+					
+				}
+			}
+		    
+		    // Redirect or forward to confirmation page
+		    response.sendRedirect("admin-products");
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Error Occured While Updating Product");
+			e.printStackTrace();
+		}
+		    
+		    
+		}
+
+	
+>>>>>>> manoj-1
 	
 	
 

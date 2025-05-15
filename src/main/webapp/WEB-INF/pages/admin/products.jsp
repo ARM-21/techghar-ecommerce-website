@@ -365,6 +365,10 @@ hr {
 		<c:if test="${not empty message}">
 			<div class="alert ${messageType}">${message}</div>
 		</c:if>
+		<c:if test="${not empty param.message}">
+			<div class="alert alert-success">${param.message}</div>
+		</c:if>
+
 
 		<div class="prod-management-header">
 			<h1>Product Management</h1>
@@ -432,9 +436,12 @@ hr {
 
 		<c:if test="${empty addNewProduct}">
 			<div class="search-filter">
-				<input type="text" placeholder="Search products..." />
-				<button class="filter-btn">🔍 Filter</button>
+				<form method="get" action="admin-products">
+					<input type="text" name="search" placeholder="Search products..." />
+					<button type="submit" class="filter-btn">🔍</button>
+				</form>
 			</div>
+
 		</c:if>
 		<div class="product-list">
 			<c:forEach var="product" items="${products}">
@@ -495,6 +502,7 @@ hr {
         const alert = document.querySelector('.alert');
         if (alert) {
             alert.style.display = 'none';
+            window.location.href = '/admin-products'
         }
     }, 4000);
     
