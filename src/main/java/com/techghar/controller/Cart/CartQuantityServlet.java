@@ -1,4 +1,4 @@
-package com.techghar.controller.Cart;
+package com.techghar.controller.cart;
 
 import java.io.IOException;
 import java.sql.SQLException;

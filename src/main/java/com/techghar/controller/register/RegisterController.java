@@ -13,9 +13,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
-
 import com.techghar.DAO.RegisterDAO;
 import com.techghar.model.UserModel;
 import com.techghar.utility.EncryptDecryptUtil;
