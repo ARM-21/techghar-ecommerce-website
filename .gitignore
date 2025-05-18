@@ -33,7 +33,6 @@ temp/
 
 # Ignore compiled Java classes
 
-*.class
 
 
 # Ignore OS-specific files
