@@ -79,38 +79,6 @@ public class ProductDAO {
 		return product;
 	}
 
-	public ArrayList<Category> getAllCategories() throws SQLException {
-		ArrayList<Category> categories = new ArrayList<>();
-		String sql = "SELECT category_id, name FROM categories";
-
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
-
-		while (rs.next()) {
-			Category category = new Category();
-			category.setId(rs.getInt("category_id"));
-			category.setName(rs.getString("name"));
-			categories.add(category);
-		}
-
-		return categories;
-	}
-
-	public List<Brand> getAllBrands() throws SQLException {
-		ArrayList<Brand> brands = new ArrayList<Brand>();
-		String sql = "SELECT * FROM brands";
-
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
-		while (rs.next()) {
-			Brand brand = new Brand();
-			brand.setId(rs.getInt("brand_id"));
-			brand.setName(rs.getString("brand_name"));
-			brands.add(brand);
-		}
-
-		return brands;
-	}
 
 	public List<Integer> getAllRatings() throws SQLException {
 		List<Integer> ratings = new ArrayList<>();
@@ -226,7 +194,7 @@ public class ProductDAO {
 
 	public ArrayList<Product> searchProductsByName(String query) {
 	    ArrayList<Product> result = new ArrayList<>();
-	    String sql = "SELECT * FROM products WHERE name LIKE ?";
+	    String sql = "SELECT p.product_id, p.name, p.price, p.description, b.brand_name, c.name as cname, p.created_at, p.imageURL, p.stock FROM products p join brands b on p.brand_id = b.brand_id join categories c on p.category_id = c.category_id  WHERE p.name LIKE ?";
 	    try  {
 	         PreparedStatement ps = conn.prepareStatement(sql);
 	        ps.setString(1, "%" + query + "%");
@@ -240,9 +208,8 @@ public class ProductDAO {
 				product.setDescription(rs.getString("description"));
 				product.setStock(rs.getInt("stock"));
 				product.setImageURL(rs.getString("imageURL"));
-				product.setRating(rs.getInt("rating"));
-				product.setBrandName(rs.getString("brand"));
-				product.setCategoryName(rs.getString("category"));
+				product.setBrandName(rs.getString("brand_name"));
+				product.setCategoryName(rs.getString("cname"));
 				product.setCreatedAt(rs.getString("created_at"));
 				result.add(product);
 	        }

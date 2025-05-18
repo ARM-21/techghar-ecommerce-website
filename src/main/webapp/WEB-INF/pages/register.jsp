@@ -53,17 +53,6 @@
 								<p>Join TechGhar to explore our products</p>
 							</div>
 							<form method="POST" action="${pageContext.request.contextPath}/register">
-								<!--   <div class="form-group">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName"  name= "firstName" placeholder="Enter your first name" required>
-                                <div class="invalid-feedback">Please enter your First name</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name= "lastName" placeholder="Enter your last name" required>
-                                <div class="invalid-feedback">Please enter your Last name</div>
-                            </div>
-                            -->
 								<div class="form-group">
 									<label for="email" class="form-label">Email Address</label> <input
 										type="email" class="form-control" id="email" name="email"
@@ -118,33 +107,6 @@
 									</div>
 									<div class="invalid-feedback">Passwords do not match</div>
 								</div>
-								<!-- 
-                            <div class="form-group">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"  name= "phoneNumber" required>
-                                <div class="invalid-feedback">Please enter a valid phone number</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="Enter your address" name="address" required>
-                                <div class="invalid-feedback">Please enter your address</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="dob" class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" id="dob"name= "dob" required>
-                                <div class="invalid-feedback">Please enter your date of birth</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender" class="form-label">Gender</label>
-                                <select class="form-control" id="gender" name= "gender" required>
-                                    <option value="">Select your gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <div class="invalid-feedback">Please select your gender</div>
-                            </div>
-                             -->
 
 								<div class="terms-checkbox">
 									<input class="checkbox-input" type="checkbox" id="termsCheck"
@@ -191,7 +153,7 @@
 		}
 
 		// Password strength checker
-		/** function checkPasswordStrength(password) {
+		 function checkPasswordStrength(password) {
 		     let strength = 0;
 		     const strengthMeter = document.getElementById('passwordStrengthMeter');
 		     const strengthText = document.getElementById('strengthText');
@@ -348,7 +310,6 @@
 		         }
 		     });
 		 });
-		 **/
 	</script>
 </body>
 </html>

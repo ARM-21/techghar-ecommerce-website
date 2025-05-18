@@ -385,7 +385,6 @@ body {
 			<div class="sorting-container">
 				<span class="sorting-label">Sort by:</span> <select
 					class="sorting-select">
-					<option value="popularity">Popularity</option>
 					<option value="price-low">Price: Low to High</option>
 					<option value="price-high">Price: High to Low</option>
 					<option value="newest">Newest First</option>
@@ -411,19 +410,6 @@ body {
 							<div class="product-price">Price: $${product.price}</div>
 							<div class="product-brand">Brand: ${product.brandName}</div>
 							<div class="product-category">Category: ${product.categoryName}</div>
-							<div class="product-rating">
-								Rating:
-								<c:forEach begin="1" end="5" var="i">
-									<c:choose>
-										<c:when test="${i <= product.rating}">
-											<span class="star filled">&#9733;</span>
-										</c:when>
-										<c:otherwise>
-											<span class="star">&#9734;</span>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								</div>
 						</a>
 					</div>
 					<a href="product-details?id=${product.id}">

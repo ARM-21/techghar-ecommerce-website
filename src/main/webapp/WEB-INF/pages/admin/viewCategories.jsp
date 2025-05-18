@@ -115,10 +115,6 @@
                                     <button type="submit" class="edit-btn">Update</button>
                                 </div>
                             </form>
-                            <form action="delete-category" method="post" style="display:inline;">
-                                <input type="hidden" name="categoryId" value="${cat.id}" />
-                                <button type="submit" class="delete-btn">Delete</button>
-                            </form>
                         </li>
                     </c:forEach>
                 </ul>

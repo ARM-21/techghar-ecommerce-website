@@ -56,22 +56,22 @@
 			class="${activePage == 'admin-products' ? 'active' : ''}"> <i
 				class="fas fa-mobile-alt"></i> <span>Products</span>
 		</a></li>
-		<li><a href="view-categories-admin"
-			class="${activePage == 'view-categories-admin' ? 'active' : ''}"> <i
+		<li><a href="/view-categories"
+			class="${activePage == 'view-categories' ? 'active' : ''}"> <i
 				class="fas fa-tags"></i> <span>Categories</span>
 		</a></li>
-			<li><a href="view-brands-admin"
-			class="${activePage == 'view-brands-admin' ? 'active' : ''}"> <i
+			<li><a href="/view-brands"
+			class="${activePage == 'view-brands' ? 'active' : ''}"> <i
 				class="fas fa-tags"></i> <span>Brands</span>
 		</a></li>
 		
-		<li><a href="#" class="${activePage == 'orders' ? 'active' : ''}">
+		<li><a href="/admin-orders" class="${activePage == 'admin-orders' ? 'active' : ''}">
 				<i class="fas fa-shopping-cart"></i> <span>Orders</span>
 		</a></li>
-		<li><a href="#" class="${activePage == 'users' ? 'active' : ''}">
-				<i class="fas fa-users"></i> <span>Users</span>
+		<li><a href="/admin-customers" class="${activePage == 'admin-customers' ? 'active' : ''}">
+				<i class="fas fa-users"></i> <span>Customers</span>
 		</a></li>
-		<li><a href="#" class="${activePage == 'staff' ? 'active' : ''}">
+		<li><a href="/admin-staff" class="${activePage == 'admin-staff' ? 'active' : ''}">
 				<i class="fas fa-user-tie"></i> <span>Staff</span>
 		</a></li>
 		<li><a href="#"

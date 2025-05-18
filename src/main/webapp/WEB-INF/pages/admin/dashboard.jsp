@@ -8,24 +8,25 @@
 <title>adminDash</title>
 </head>
 <style>
-.dash-content {
-	display: flex;
-	justify-content: flex-end;
-	margin: 100px auto;
-	width: 90%;
+.main-content {
+  margin-left: 250px; 
+margin-top:50px;
+  padding: 20px;
+  overflow-x: auto;	
 }
 
 @media screen and (max-width: 910px) {
-	.dash-content {
+	.main-content {
 		display: flex;
 		justify-content: center;
+		margin-left: 0px; 
 		margin: 100px auto;
 	}
 }
 </style>
 <body>
 	<%@ include file="/WEB-INF/pages/admin/component/navbar.jsp"%>
-	<div class="dash-content">
+	<div class="main-content">
 		<jsp:include page="${pageContent}" />
 	</div>
 	<%@ include file="/WEB-INF/pages/component/footer.jsp"%>

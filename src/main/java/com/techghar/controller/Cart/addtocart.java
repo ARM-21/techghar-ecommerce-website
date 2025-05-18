@@ -47,7 +47,7 @@ public class AddToCart  extends HttpServlet {
 //            int quantity = Integer.parseInt(request.getParameter("quantity"));
             ProductDAO prodDao = new ProductDAO();
             Product product = prodDao.getProductById(productId);
-            boolean success = cartDAO.addToCart(userId, productId, 0);
+            boolean success = cartDAO.addToCart(userId, productId, 1);
             
             if (success) {
                 int cartCount = cartDAO.getCartItemCount(userId);

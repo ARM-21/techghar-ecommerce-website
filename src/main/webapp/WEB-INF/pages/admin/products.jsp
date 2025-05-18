@@ -20,8 +20,6 @@ body {
 }
 
 .container {
-	margin-left: 250px;
-	margin-top: 10px;
 	padding: 20px;
 	transition: all 0.3s ease;
 	max-width: 900px;
@@ -342,6 +340,41 @@ hr {
 	color: #721c24;
 	border: 1px solid #f5c6cb;
 }
+.product-table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #fff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 20px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.product-table th, .product-table td {
+	padding: 12px 15px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.product-table th {
+	background-color: #6c63ff;
+	color: white;
+	font-weight: 600;
+}
+
+.product-table tbody tr:hover {
+	background-color: #f1f1f1;
+}
+
+.table-img {
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
 </style>
 </head>
 
@@ -418,12 +451,6 @@ hr {
 					</div>
 
 					<div class="form-group">
-						<label for="rating">Rating</label> <input type="number"
-							name="rating" step="0.1" min="0" max="5" required
-							oninput="if(this.value > 5) this.value = 5;" />
-					</div>
-
-					<div class="form-group">
 						<label for="imageUrl">Choose An Image</label> <input type="file"
 							name="imageFile" required />
 					</div>
@@ -441,60 +468,37 @@ hr {
 					<button type="submit" class="filter-btn">🔍</button>
 				</form>
 			</div>
-
+			<table class="product-table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Image</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Stock</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="product" items="${products}">
+			<tr>
+				<td>#${product.id}</td>
+				<td><img src="${product.imageURL}" alt="${product.name}" class="table-img"/></td>
+				<td>${product.name}</td>
+				<td>${product.description}</td>
+				<td>$${product.price}</td>
+				<td>${product.stock}</td>
+				<td>
+					<a href="admin-update?id=${product.id}" class="edit">✏️</a>
+					<a href="product-delete?id=${product.id}" class="delete" onclick="return confirm('Are you sure you want to delete this product?');">🗑️</a>
+				</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
 		</c:if>
-		<div class="product-list">
-			<c:forEach var="product" items="${products}">
-				<div class="product-card">
-					<div class="id">#${product.id}</div>
 
-					<!-- Product Image -->
-					<div class="product-image">
-						<img src="${product.imageURL}" alt="${product.name}" />
-					</div>
-
-					<div class="info">
-						<h3>${product.name}</h3>
-						<p>
-							<strong>Description:</strong> ${product.description}
-						</p>
-						<p>
-							<strong>Price:</strong> $${product.price}
-						</p>
-						<p>
-							<strong>Stock:</strong> ${product.stock}
-						</p>
-						<p>
-							<strong>Brand:</strong> ${product.brandName}
-						</p>
-						<p>
-							<strong>Category:</strong> ${product.categoryName}
-						</p>
-						<p>
-							<strong>Rating:</strong> ${product.rating} ⭐
-						</p>
-						<p>
-							<strong>Created At:</strong> ${product.createdAt}
-						</p>
-					</div>
-
-					<div class="actions">
-						<a href="admin-update?id=${product.id}" class="edit">✏️</a>
-						<form action="product-delete?id=${product.id}" method="post"
-							class="delete">
-							<button type="submit">Delete🗑️</button>
-						</form>
-
-					</div>
-				</div>
-
-			</c:forEach>
-		</div>
-
-		<div class="pagination">
-			<a href="#">«</a> <a class="active" href="#">1</a> <a href="#">2</a>
-			<a href="#">3</a> <a href="#">»</a>
-		</div>
 	</div>
 	<script>
 

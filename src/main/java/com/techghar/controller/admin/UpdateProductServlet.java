@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.techghar.DAO.BrandDAO;
+import com.techghar.DAO.CategoryDAO;
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.Brand;
 import com.techghar.model.Category;
@@ -33,13 +35,20 @@ import com.techghar.utility.ImageUtility;
 public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	BrandDAO brandDAO;
+	ProductDAO prodDAO;
+	CategoryDAO catDAO;
+	/**
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UpdateProductServlet() throws ClassNotFoundException, SQLException {
+		brandDAO = new BrandDAO();
+		prodDAO = new ProductDAO();
+		catDAO = new CategoryDAO();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,14 +59,13 @@ public class UpdateProductServlet extends HttpServlet {
 		Product product;
 		List<Brand> brands;
 		try {
-			ProductDAO dao = new ProductDAO();
-			ArrayList<Category> categories = dao.getAllCategories();
-			brands = dao.getAllBrands();
+			ArrayList<Category> categories = (ArrayList<Category>) catDAO.getAllCategories();
+			brands = brandDAO.getAllBrands();
 			request.setAttribute("categories", categories);
 			request.setAttribute("brands", brands);
 			request.setAttribute("activePage", "admin-products");
 			request.setAttribute("pageContent", "./updateProduct.jsp");
-			product = dao.getProductById(productId);
+			product = prodDAO.getProductById(productId);
 			request.setAttribute("product", product);
 			request.getRequestDispatcher("/WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -93,7 +101,7 @@ public class UpdateProductServlet extends HttpServlet {
 
 			}
 			else {
-				// Now you can update the product in the database
+			
 			    Product updatedProduct = new Product();
 			    updatedProduct.setName(name);
 			    updatedProduct.setDescription(description);
@@ -103,7 +111,6 @@ public class UpdateProductServlet extends HttpServlet {
 			    updatedProduct.setCategory(categoryId);
 			    updatedProduct.setImageURL(filePath);
 			    updatedProduct.setId(productId);
-			    // Call your DAO method to update the product
 			    ProductDAO dao = new ProductDAO();
 			   Boolean productUpdatedSuccessfully;
 				productUpdatedSuccessfully = dao.updateProduct(updatedProduct);
@@ -120,8 +127,7 @@ public class UpdateProductServlet extends HttpServlet {
 					
 				}
 			}
-		    
-		    // Redirect or forward to confirmation page
+		   
 		    response.sendRedirect("admin-products");
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -44,7 +44,9 @@ public class GetProductsServlet extends HttpServlet {
 
 		    String searchQuery = request.getParameter("search");
 		    if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-		        products = productDAO.searchProductsByName(searchQuery); // You implement this
+		        products = productDAO.searchProductsByName(searchQuery);
+		        
+		        System.out.println(products.toString());
 		    } else {
 		        products = productDAO.getAllProducts();
 		    }

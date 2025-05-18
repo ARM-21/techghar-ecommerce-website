@@ -401,7 +401,7 @@ body {
                         <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" >
                         Remember me
                     </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    
                 </div>
                 <button type="submit" class="login-button">Login</button>
          </form>

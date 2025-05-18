@@ -128,13 +128,12 @@
 
 .main-content {
 	display: flex;
-	width: 75%;
 	flex-direction: column;
 }
 </style>
 </head>
 <body>
-	<main class="main-content">
+	<main class="main-contents">
 		<!-- Dashboard Stats -->
 		<div class="stats-container">
 			<div class="stats-card">

@@ -31,11 +31,6 @@
             <p>
                 <strong>Description:</strong> <c:out value="${product.description}" />
             </p>
-            <strong>Rating:</strong>
-            <c:forEach var="i" begin="0" end="4">
-                <span class="star ${i < product.rating ? 'filled' : ''}">&#9733;</span>
-            </c:forEach>
-
             <c:if test="${product.stock > 0}">
                 <form action="/add-to-cart" method="post">
                     <input type="hidden" name="productId" value="${product.id}" />

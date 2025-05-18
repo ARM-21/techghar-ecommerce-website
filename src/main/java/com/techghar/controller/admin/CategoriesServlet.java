@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.techghar.DAO.CategoryDAO;
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.Category;
+import com.techghar.utility.ErrorHandlerUtilty;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,17 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CategoriesServlet
  */
-@WebServlet("/view-categories-admin")
+@WebServlet("/view-categories")
 public class CategoriesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private ProductDAO dao;
+	 private CategoryDAO dao;
     /**
      * @throws SQLException 
      * @throws ClassNotFoundException 
      * @see HttpServlet#HttpServlet()
      */
     public CategoriesServlet() throws ClassNotFoundException, SQLException {
-    	dao = new ProductDAO();
+    	
+   
         // TODO Auto-generated constructor stub
     }
 
@@ -37,30 +41,19 @@ public class CategoriesServlet extends HttpServlet {
     	
         List<Category> categories;
 		try {
+			dao = new CategoryDAO();
 			categories = dao.getAllCategories();
 	        request.setAttribute("categoryList", categories);
-	        request.setAttribute("activePage", "view-categories-admin");
-	        request.setAttribute("pageContent", "view-categories.jsp");
+	        request.setAttribute("activePage", "view-categories");
+	        request.setAttribute("pageContent", "viewCategories.jsp");
 	        request.getRequestDispatcher( "WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-			categories = dao.getAllCategories();
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Server is facing issue while fetching category");
 		}
 
     }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		String category = (String) request.getAttribute("categoryName");
-		
-		
-		
-		
-		doGet(request, response);
-	}
+
 
 }

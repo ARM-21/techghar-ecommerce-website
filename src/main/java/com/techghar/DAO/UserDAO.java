@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.User;
+
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.UserModel;
 import com.techghar.utility.ErrorHandlerUtilty;
@@ -24,19 +26,41 @@ public class UserDAO {
 		
 	}
 
-	public UserModel getUserById(int id) {
+	public UserModel getUserById(int id) throws SQLException {
 		UserModel user = null;
 		String sql = "SELECT * FROM users WHERE user_id = ?";
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				 user = extractUser(rs);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return user;
+	}
+	
+	public List<UserModel> getAllCustomers() throws SQLException {
+	    List<UserModel> list = new ArrayList<>();
+	    String sql = "SELECT * FROM users WHERE role = 'CUSTOMER'";
+	    
+	    try (PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+	        while (rs.next()) {
+	            UserModel user = new UserModel();
+//	            user.set(rs.getInt("user_id"));
+	            user.setFirstName(rs.getString("first_name"));
+	            user.setLastName(rs.getString("last_name"));
+	            user.setEmail(rs.getString("email"));
+	            user.setPhone(rs.getString("phone"));
+	            user.setAddress(rs.getString("address"));
+	            user.setUsername(rs.getString("username"));
+	            user.setDob( rs.getDate("dob"));
+	            user.setGender(rs.getString("gender"));
+	            user.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+	            list.add(user);
+	        }
+	    }
+	    return list;
 	}
 	
 	//

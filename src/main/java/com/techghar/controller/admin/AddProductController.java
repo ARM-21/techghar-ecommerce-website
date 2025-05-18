@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.techghar.DAO.BrandDAO;
+import com.techghar.DAO.CategoryDAO;
 import com.techghar.DAO.ProductDAO;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
@@ -33,11 +35,18 @@ import com.techghar.model.Brand;
 public class AddProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	BrandDAO brandDAO;
+	ProductDAO prodDAO;
+	CategoryDAO catDAO;
 	/**
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddProductController() {
-		super();
+	 public AddProductController() throws ClassNotFoundException, SQLException {
+		brandDAO = new BrandDAO();
+		prodDAO = new ProductDAO();
+		catDAO = new CategoryDAO();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,15 +60,15 @@ public class AddProductController extends HttpServlet {
 
 		List<Brand> brands;
 		try {
-			ProductDAO dao = new ProductDAO();
-			ArrayList<Category> categories = dao.getAllCategories();
-			brands = dao.getAllBrands();
+		
+			ArrayList<Category> categories = (ArrayList<Category>) catDAO.getAllCategories();
+			brands = brandDAO.getAllBrands();
 			request.setAttribute("categories", categories);
 			request.setAttribute("brands", brands);
 			request.setAttribute("activePage", "admin-products");
 			request.setAttribute("pageContent", "./products.jsp");
 			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			ErrorHandlerUtilty.handleErrorAdmin(request, response,
 					"Oops! Error Occured While Fetching Product related data");
@@ -79,6 +88,7 @@ public class AddProductController extends HttpServlet {
 		
 			System.out.println(request.getParameter("brandId"));
 			ProductDAO dao = new ProductDAO();
+			CategoryDAO catDAO = new CategoryDAO();
 			Product product = new Product();
 			Part image = request.getPart("imageFile");
 			if(image == null) {
@@ -122,8 +132,8 @@ public class AddProductController extends HttpServlet {
 			
 			List<Brand> brands;
 		
-			ArrayList<Category> categories = dao.getAllCategories();
-			brands = dao.getAllBrands();
+			ArrayList<Category> categories = (ArrayList<Category>) catDAO.getAllCategories();
+			brands = brandDAO.getAllBrands();
 			request.setAttribute("categories", categories);
 			request.setAttribute("brands", brands);
 			request.setAttribute("activePage", "admin-products");
