@@ -7,8 +7,8 @@ public class DatabaseConnection {
 	// Database configuration information
 		private static final String DB_NAME = "ecommerce_db";
 		private static final String URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
-		private static final String USERNAME = "tech_user";
-		private static final String PASSWORD = "tech@ghar123";
+		private static final String USERNAME = "root";
+		private static final String PASSWORD = "";
 
 		/**
 		 * Establishes a connection to the database.

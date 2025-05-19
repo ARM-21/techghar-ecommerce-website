@@ -1,4 +1,4 @@
-package com.techghar.controller.cart;
+package com.techghar.controller.Cart;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import com.techghar.utility.SessionUtil;
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/add-to-cart"})
 
-public class AddToCart  extends HttpServlet {
+public class addtocart  extends HttpServlet {
     
     private CartDAO cartDAO;
     
