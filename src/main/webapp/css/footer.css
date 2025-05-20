@@ -1,13 +1,14 @@
 @charset "UTF-8";
+
 /* Footer */
 footer {
-    background-color: white;
-    padding: 20px 0;
-    border-top: 1px solid var(--border-color);
-    text-align: center;
+	background-color: white;
+	padding: 20px 0;
+	border-top: 1px solid var(--border-color);
+	text-align: center;
 }
 
 .copyright {
-    color: #777;
-    font-size: 14px;
+	color: #777;
+	font-size: 14px;
 }

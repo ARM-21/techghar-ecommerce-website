@@ -136,15 +136,15 @@ body {
                 <div class="order-box">
                 
                     <h3>Order ID: ${order.id}</h3>
-                    <p><strong>Order Date:</strong> ${order.deliveryDetails.deliveryDate}</p>
+                    <p><strong>Order Date:</strong> ${order.orderDate}</p>
                 
                     <p><strong>Total Amount:</strong> $${order.totalAmount}</p>
                     
                     
-                    <p><strong>Delivery Address:</strong> ${order.deliveryDetails.address}</p>
-					<p><strong>Phone:</strong> ${order.deliveryDetails.phone}</p>
+                    <p><strong>Delivery Address:</strong> ${order.deliveryModel.address}</p>
+					<p><strong>Phone:</strong> ${order.deliveryModel.phone}</p>
 					
-					<p><strong>Status:</strong> ${order.deliveryDetails.deliveryStatus}</p>
+					<p><strong>Status:</strong> ${order.deliveryModel.deliveryStatus}</p>
 					
                     
 

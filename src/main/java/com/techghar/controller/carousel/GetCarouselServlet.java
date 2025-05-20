@@ -35,7 +35,11 @@ public class GetCarouselServlet extends HttpServlet {
     	
     	try {
     		carouselDAO = new CarouselDAO();
+    		System.out.println("Hello");
     		 ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
+    		 for(CarouselItem item: carouselItems) {
+    			 System.out.println(item);
+    		 }
     	        request.setAttribute("carouselItems", carouselItems);
     	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/main.jsp");
     	        dispatcher.forward(request, response);

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.techghar.DAO.OrderDAO;
 import com.techghar.DAO.StatisticDAO;
 
 /**
@@ -39,9 +40,10 @@ public class DashboardController extends HttpServlet {
 				StatisticDAO dao = new StatisticDAO();
 				request.setAttribute("activePage", "dashboard");
 				request.setAttribute("totalProducts", dao.getTotalProducts());
+				request.setAttribute("totalOrders", dao.getNewOrdersCount());
 				 request.setAttribute("newOrders", dao.getRecentOrders());
 				 request.setAttribute("totalCustomers", dao.getTotalCustomers());
-				 request.setAttribute("totalRevenue", dao.getTotalCustomers());
+				 request.setAttribute("totalRevenue", dao.getTotalRevenue());
 					//main section
 					request.setAttribute("pageContent", "/WEB-INF/pages/admin/stats.jsp");
 					request.getRequestDispatcher("/WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
@@ -56,8 +58,7 @@ public class DashboardController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	  
 	}
 
 }

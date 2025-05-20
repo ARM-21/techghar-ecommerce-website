@@ -18,18 +18,20 @@ body {
 }
 
 .slides {
-	width: 300%; /* 100% × number of slides */
+	width: 300%;
+	/* 100% × number of slides */
 	display: flex;
 	transition: transform 0.5s ease;
 }
 
 .slide {
-	width: 33.33%; /* 100% ÷ number of slides */
+	width: 33.33%;
+	/* 100% ÷ number of slides */
 	height: 350px;
 	background-size: cover;
 	background-position: center;
 	position: relative;
-	display:none;
+	display: none;
 }
 
 .slide:nth-child(1) {
@@ -104,7 +106,8 @@ body {
 	transform: translateY(-50%);
 }
 
-.prev, .next {
+.prev,
+.next {
 	background-color: rgba(255, 255, 255, 0.7);
 	color: #333;
 	border: none;
@@ -119,62 +122,66 @@ body {
 	margin: 0 15px;
 }
 
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
 	background-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Responsive styles */
-@media ( max-width : 768px) {
+@media (max-width : 768px) {
 	.slide {
 		height: 300px;
 	}
+
 	.slide-content h2 {
 		font-size: 1.8rem;
 	}
+
 	.slide-content p {
 		font-size: 1rem;
 	}
 }
 
-@media ( max-width : 480px) {
+@media (max-width : 480px) {
 	.carousel-controls {
 		display: none;
 	}
 }
 
-@media ( min-width : 1200px) {
+@media (min-width : 1200px) {
 	.carousel {
 		max-width: 1400px;
 		width: 75%;
 	}
+
 	.slide {
 		height: 350px;
 	}
 }
 
-@media ( min-width : 1600px) {
+@media (min-width : 1600px) {
 	.carousel {
 		max-width: 1800px;
 	}
 }
 
 .slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+	display: flex;
+	transition: transform 0.5s ease-in-out;
 }
 
 
 .slide.active {
-    display: block;
+	display: block;
 }
 
 .slide-content {
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
+	padding: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
 }
 
 
 .dot.active {
-    background: white;
+	background: white;
 }

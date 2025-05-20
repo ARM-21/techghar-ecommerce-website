@@ -1,4 +1,4 @@
-package com.techghar.controller.Cart;
+package com.techghar.controller.cart;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,13 +36,12 @@ public class OrdersServlet extends HttpServlet {
 		        
 		        for (OrderModel order : orders) {
 		            List<OrderItem> items = orderDAO.getOrderItems(order.getId());
-		            
-		            order.setOrderItems(items); 
-		            
-		            DeliveryModel delivery = orderDAO.getDeliveryByOrderId(order.getId());
-		            order.setDeliveryDetails(delivery);
-		           
-		            
+		            order.setOrderItems(items);
+
+		            OrderModel delivery = orderDAO.getOrderWithDeliveryById(order.getId());
+		            if (delivery != null) {
+		                order.setDeliveryModel(delivery.getDeliveryModel());
+		            }
 		        }
 		        
 		        

@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.catalina.User;
-
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.UserModel;
 import com.techghar.utility.ErrorHandlerUtilty;

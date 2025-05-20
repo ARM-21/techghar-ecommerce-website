@@ -23,8 +23,8 @@ public class GetHomeServlet extends HttpServlet {
 		// carousel data
 
 		try {
-//			CarouselDAO carouselDAO = new CarouselDAO();
-//			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
+			CarouselDAO carouselDAO = new CarouselDAO();
+			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
 			System.out.println("Database Connected Successfully");
 			System.out.println(request.getRequestURI());
 			if(request.getRequestURI().equals("/products")) {
@@ -32,7 +32,7 @@ public class GetHomeServlet extends HttpServlet {
 			}
 			
 			else {
-//				request.setAttribute("carouselItems", carouselItems);
+				request.setAttribute("carouselItems", carouselItems);
 				request.setAttribute("activePage", "home");
 			}
 			

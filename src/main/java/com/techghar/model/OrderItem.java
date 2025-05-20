@@ -5,7 +5,10 @@ public class OrderItem {
     private int orderItemId;
     private int orderId;
     private int productId; 
-    private Product product;
+    private String productName;
+  
+
+	private Product product;
     private int quantity;
     private double price;     // price per unit
     private double subtotal;  // price * quantity
@@ -21,6 +24,13 @@ public class OrderItem {
         this.price = price;
         this.subtotal = price * quantity;
     }
+    public String getProductName() {
+  		return productName;
+  	}
+
+  	public void setProductName(String productName) {
+  		this.productName = productName;
+  	}
 
     // Getters and Setters
     public int getOrderItemId() {

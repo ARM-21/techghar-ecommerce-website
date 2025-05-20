@@ -1,4 +1,4 @@
-package com.techghar.controller.Cart;
+package com.techghar.controller.cart;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,7 +40,7 @@ public class CheckOutServlet extends HttpServlet {
 		        
 
 		    } catch (SQLException e) {
-		        throw new ServletException("Database error while loading cart", e);
+		        throw new ServletException("Database error while loading cart"+ e.getMessage());
 		    } catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,7 +82,7 @@ public class CheckOutServlet extends HttpServlet {
 		if (success) {
 		    session.setAttribute("orderSuccess", "Your order has been placed successfully!");
 		    session.setAttribute("cartCount", 0);
-		    response.sendRedirect("cart-check-out");
+		    response.sendRedirect("orders");
 		} else {
 		    session.setAttribute("errorMessage", "Checkout failed. Your cart may be empty.");
 		    response.sendRedirect("cart");
