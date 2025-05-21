@@ -19,7 +19,7 @@ import com.techghar.utility.SessionUtil;
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/add-to-cart"})
 
-public class addtocart  extends HttpServlet {
+public class AddToCart  extends HttpServlet {
     
     private CartDAO cartDAO;
     
@@ -44,7 +44,6 @@ public class addtocart  extends HttpServlet {
         try {
          
             int productId = Integer.parseInt(request.getParameter("productId"));
-//            int quantity = Integer.parseInt(request.getParameter("quantity"));
             ProductDAO prodDao = new ProductDAO();
             Product product = prodDao.getProductById(productId);
             boolean success = cartDAO.addToCart(userId, productId, 1);
@@ -60,7 +59,7 @@ public class addtocart  extends HttpServlet {
             
             
           
-            response.sendRedirect("cart");
+            response.sendRedirect(request.getContextPath()+"/cart");
             
         } catch (SQLException e) {
             e.printStackTrace();

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.techghar.DAO.CarouselDAO;
 import com.techghar.DAO.ProductDAO;
@@ -15,14 +16,16 @@ import com.techghar.model.CarouselItem;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/home","/products" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/home","/products","" })
 public class GetHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		// carousel data
-
+		List<Product> products = null;
 		try {
+			
+			ProductDAO productDAO = new ProductDAO();
 			CarouselDAO carouselDAO = new CarouselDAO();
 			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
 			System.out.println("Database Connected Successfully");
@@ -31,14 +34,23 @@ public class GetHomeServlet extends HttpServlet {
 				request.setAttribute("activePage", "products");	
 			}
 			
+			
 			else {
 				request.setAttribute("carouselItems", carouselItems);
 				request.setAttribute("activePage", "home");
+				String sort = request.getParameter("sort");
+				
+				System.out.println(sort);
+				if(sort != null) {
+					products = productDAO.getAllProducts(sort);
+					request.setAttribute("products", products);
+					request.setAttribute("sort", sort);
+				}
 			}
 			
 			// product data
-			ProductDAO productDAO = new ProductDAO();
-			ArrayList<Product> products = productDAO.getAllProducts();
+			 products = productDAO.getAllProducts("price-low");	
+		
 
 			request.setAttribute("products", products);
 			// main section

@@ -33,10 +33,7 @@ public class ProductDAO {
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-//			Product p = new Product(rs.getInt("product_id"), rs.getString("name"), rs.getDouble("price"),
-//					rs.getString("description"), rs.getInt("stock"), rs.getString("image_url"), rs.getInt("rating"),
-//					rs.getInt("brand_id"), rs.getInt("category_id"));
-//			p.setCreatedAt(rs.getString("created_at"));
+
 			Product product = new Product();
 			product.setId(rs.getInt("product_id"));
 			product.setName(rs.getString("name"));
@@ -219,4 +216,55 @@ public class ProductDAO {
 	    return result;
 	}
 
+	
+	public List<Product> getAllProducts(String sortOption) throws SQLException, ClassNotFoundException {
+		List<Product> productList = new ArrayList<>();
+
+		Connection conn = DatabaseConnection.getDatabaseConnection();
+
+		// Base query
+		String sql = "SELECT p.product_id, p.name, p.price, p.description, p.stock, p.created_at, " +
+				"p.imageURL, p.rating, b.brand_id, c.category_id, " +
+				"b.brand_name AS brand, c.name AS category " +
+				"FROM products p " +
+				"JOIN brands b ON p.brand_id = b.brand_id " +
+				"JOIN categories c ON p.category_id = c.category_id " +
+				"GROUP BY p.product_id ";
+
+		// Append ORDER BY based on sortOption
+		switch (sortOption) {
+			case "price-low":
+				sql += "ORDER BY p.price ASC";
+				break;
+			case "price-high":
+				sql += "ORDER BY p.price DESC";
+				break;
+			case "newest":
+				sql += "ORDER BY p.created_at DESC";
+				break;
+			default:
+				sql += "ORDER BY p.product_id ASC"; // Default fallback
+				break;
+		}
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("name"));
+			product.setPrice(rs.getDouble("price"));
+			product.setDescription(rs.getString("description"));
+			product.setStock(rs.getInt("stock"));
+			product.setImageURL(rs.getString("imageURL"));
+			product.setBrandName(rs.getString("brand"));	
+			product.setCategoryName(rs.getString("category"));
+			productList.add(product);
+		}
+		return productList;
+	}
+
+
+	
 }

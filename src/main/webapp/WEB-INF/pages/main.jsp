@@ -108,9 +108,9 @@ body {
 /* Product Grid */
 .product-grid {
 	display: flex;
-	flex-wrap:wrap;
+	flex-wrap: wrap;
 	gap: 25px;
-	justify-content:center;
+	justify-content: center;
 }
 
 /* Product Cards */
@@ -260,8 +260,8 @@ body {
 	border-radius: 12px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 	overflow: hidden;
-	height:400px;
-	width:300px;
+	height: 400px;
+	width: 300px;
 	transition: transform 0.2s ease-in-out;
 }
 
@@ -341,7 +341,7 @@ body {
 /* Responsive Styles */
 @media ( max-width : 992px) {
 	.product-grid {
-		display:flex;
+		display: flex;
 	}
 }
 
@@ -383,13 +383,22 @@ body {
 				<span>${products.size()} Products Found</span>
 			</div>
 			<div class="sorting-container">
-				<span class="sorting-label">Sort by:</span> <select
-					class="sorting-select">
-					<option value="price-low">Price: Low to High</option>
-					<option value="price-high">Price: High to Low</option>
-					<option value="newest">Newest First</option>
-				</select>
+				<span class="sorting-label">Sort by:</span>
+				<form method="get" action="home">
+					<select class="sorting-select" name="sort"
+						onchange="this.form.submit()">
+						<option value="price-low"
+							${param.sort == 'price-low' ? 'selected' : ''}>Price:
+							Low to High</option>
+						<option value="price-high"
+							${param.sort == 'price-high' ? 'selected' : ''}>Price:
+							High to Low</option>
+						<option value="newest" ${param.sort == 'newest' ? 'selected' : ''}>Newest
+							First</option>
+					</select>
+				</form>
 			</div>
+
 		</div>
 
 		<div class="product-grid">
@@ -409,24 +418,26 @@ body {
 							<h3 class="product-name">${product.name}</h3>
 							<div class="product-price">Price: $${product.price}</div>
 							<div class="product-brand">Brand: ${product.brandName}</div>
-							<div class="product-category">Category: ${product.categoryName}</div>
+							<div class="product-category">Category:
+								${product.categoryName}</div>
 						</a>
 					</div>
 					<a href="product-details?id=${product.id}">
-					<button class="add-to-cart">view Product</button>
-				</a>
+						<button class="add-to-cart">view Product</button>
+					</a>
 				</div>
-				
-		
 
-		</c:forEach>
 
-</div>
+
+			</c:forEach>
+
+		</div>
 
 	</div>
 	</section>
 	<script>
-</script>
+		
+	</script>
 
 </body>
 </html>
