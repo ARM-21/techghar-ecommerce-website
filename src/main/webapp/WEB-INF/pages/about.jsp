@@ -658,7 +658,6 @@
     </style>
 </head>
 <body>
-    <%@ include file="/WEB-INF/pages/component/header.jsp" %>
     <!-- Hero Banner -->
     <section class="hero-banner">
         <div class="container text-center">
@@ -850,7 +849,5 @@
         </div>
     </section>
 
-
-<%@ include file="/WEB-INF/pages/component/footer.jsp" %>
 </body>
 </html>

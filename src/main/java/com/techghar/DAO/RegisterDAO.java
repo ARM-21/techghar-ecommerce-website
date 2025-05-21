@@ -58,7 +58,7 @@ private  Connection conn = null;
 	    try (PreparedStatement ps = conn.prepareStatement(query)) {
 
 	    		System.out.println(user.getDob());
-	        // Set values into the prepared statement from the user object
+	        // Setting values into the prepared statement from the user object
 	        ps.setString(1, user.getFirstName());  // First name
 	        ps.setString(2, user.getLastName());   // Last name
 	        ps.setString(3, user.getEmail());      // Email
@@ -133,52 +133,6 @@ private  Connection conn = null;
 	    return false;
 	}
 
-	
-//	public Boolean checkUser(String username, String password ) {
-//		Boolean isValidUser = false;
-//		if(conn != null) {
-//			 try {
-//			        String sql = "SELECT * FROM user_table WHERE username = ? AND password = ?";
-//			      PreparedStatement  statement = conn.prepareStatement(sql);
-//	
-//			        statement.setString(1, username);
-//			        statement.setString(2, password);
-//			        
-//			        ResultSet resultSet = statement.executeQuery();
-//
-//	
-//			        if (resultSet.next()) {
-//			            isValidUser = true;
-//			        }
-//
-//			    } catch (SQLException e) {
-//			        e.printStackTrace();
-//			    }
-//		}
-//		return isValidUser;
-//		
-//		
-//	}
-	
-//	public  ArrayList<UserModel> getAllStudentModels() throws SQLException {
-//		ArrayList<UserModel> allStudentModelList = new ArrayList<UserModel>();
-//		if (conn == null) {
-//			System.out.println("Database Not Connected...");
-//			return null;
-//		}
-//
-//		String query = "Select * from user_table";
-//		PreparedStatement ps = conn.prepareStatement(query);
-//		ResultSet rs = ps.executeQuery();
-//		while (rs.next()) {
-//			UserData student = new UserData(
-//					rs.getString("username"),
-//					rs.getString("password")
-//					);
-//			allStudentModelList.add(student);
-//		}
-//		return allStudentModelList;
-//	}
 	
 
 

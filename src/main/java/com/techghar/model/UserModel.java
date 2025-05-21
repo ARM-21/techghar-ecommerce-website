@@ -7,6 +7,15 @@ public class UserModel {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private String password;
 	private String phone;
 	private String address;
@@ -14,7 +23,16 @@ public class UserModel {
 	private String username;
 	private Date dob;
 	private String gender;
+	private String role;
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

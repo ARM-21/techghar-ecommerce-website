@@ -13,7 +13,6 @@ import com.techghar.DAO.LoginDAO;
 import com.techghar.utility.CookieUtility;
 import com.techghar.utility.SessionUtil;
 
-
 /**
  * Servlet implementation class LoginContoller
  */
@@ -22,6 +21,7 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final LoginDAO loginDAO;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -58,38 +58,43 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String rememberMe = request.getParameter("rememberMe");
 		String password = request.getParameter("password");
-		Boolean loginStatus = loginDAO.logUserIN(request,email, password);
-		if(rememberMe != null && rememberMe.equals("on")) {
+		Boolean loginStatus = loginDAO.logUserIN(request, email, password);
+		if (rememberMe != null && rememberMe.equals("on")) {
 			rememberUser(true, 48, loginStatus, email, resp, request);
-		}
-		else {
+		} else {
 			rememberUser(true, 1, loginStatus, email, resp, request);
 		}
-		
+
 	}
-	
-	
-	private void rememberUser(Boolean isRemember,int time, Boolean loginStatus, String email, HttpServletResponse resp, HttpServletRequest request) throws ServletException, IOException {
-		
+
+	private void rememberUser(Boolean isRemember, int time, Boolean loginStatus, String email, HttpServletResponse resp,
+			HttpServletRequest request) throws ServletException, IOException {
+
 		if (loginStatus != null && loginStatus) {
 			System.out.println(SessionUtil.getAttribute(request, "role"));
-			if (SessionUtil.getAttribute(request, "role").equals("admin")) {
-				CookieUtility.addCookie(resp, "role", "admin", time *  60 * 60);
-				resp.sendRedirect( "/dashboard"); // Redirect to /dashboard
+			Object role = SessionUtil.getAttribute(request, "role");
+			if (role.equals("admin") || role.equals("staff")) {
+				if (role.equals("admin") || role.equals("staff")) {	
+
+					CookieUtility.addCookie(resp, "role", "admin", time * 60 * 60);
+				} else {
+					CookieUtility.addCookie(resp, "role", "staff", time * 60 * 60);
+				}
+				resp.sendRedirect("/dashboard"); // Redirect to /dashboard
 			} else {
-				CookieUtility.addCookie(resp, "role", "user", time *  60 * 60);
+				CookieUtility.addCookie(resp, "role", "user", time * 60 * 60);
 				resp.sendRedirect("/home"); // Redirect to /home
 			}
 		} else {
 			handleFailure(request, resp, loginStatus);
 		}
 	}
-	
+
 	/**
 	 * Handles login failures by setting attributes and forwarding to the login
 	 * page.
 	 *
-	 * @param request         HttpServletRequest object
+	 * @param request     HttpServletRequest object
 	 * @param resp        HttpServletResponse object
 	 * @param loginStatus Boolean indicating the login status
 	 * @throws ServletException if a servlet-specific error occurs
@@ -104,9 +109,8 @@ public class LoginController extends HttpServlet {
 			errorMessage = "User credential mismatch. Please try again!";
 		}
 		request.setAttribute("message", errorMessage);
-		request.setAttribute("pageContent","/WEB-INF/pages/login.jsp");
+		request.setAttribute("pageContent", "/WEB-INF/pages/login.jsp");
 		request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, resp);
 	}
-
 
 }

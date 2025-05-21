@@ -13,16 +13,16 @@ import com.techghar.DAO.UserDAO;
 import com.techghar.utility.ErrorHandlerUtilty;
 
 /**
- * Servlet implementation class GetUserServlet
+ * Servlet implementation class UserServlet
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/user-profile", "/update-profile", "/update-admin-profile","/admin-profile" })
-public class GetUserServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public GetUserServlet() {
+	public UserServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

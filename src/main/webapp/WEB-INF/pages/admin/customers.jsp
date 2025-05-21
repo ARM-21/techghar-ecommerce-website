@@ -47,7 +47,7 @@ th {
 				<div class="table-wrapper">
 					<table class="Customer-table">
 						<tr>
-							<th>#</th>
+							<th>ID</th>
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Email</th>
@@ -60,7 +60,7 @@ th {
 						</tr>
 						<c:forEach var="user" items="${customers}" varStatus="loop">
 							<tr>
-								<td>${loop.index + 1}</td>
+								<td>${user.id} </td>
 								<td>${user.firstName}</td>
 								<td>${user.lastName}</td>
 								<td>${user.email}</td>

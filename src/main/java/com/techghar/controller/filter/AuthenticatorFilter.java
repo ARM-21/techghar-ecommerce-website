@@ -18,18 +18,20 @@ public class AuthenticatorFilter implements Filter {
     };
 
     private static final String[] PUBLIC_PAGES = {
-        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER,"/uploadPhoto", "/about", "/products"
-
+        "/", "/home", "/about", "/contact", "/products", "/product-details", "search-catalog", LOGIN, REGISTER, "/uploadPhoto"
     };
 
     private static final String[] USER_PAGES = {
-        "/user-profile", "/checkout", "/cart", "/orderlist", "/update-profile", "/update-profile-post","/add-to-cart","/RemoveFromCart", "/Cartquantity","/cart-check-out","/orders","/about","/contact"
+        "/user-profile", "/checkout", "/cart", "/orderlist", "/update-profile", "/update-profile-post", "/add-to-cart", "/RemoveFromCart", "/Cartquantity"
     };
 
     private static final String[] ADMIN_PAGES = {
-        "/dashboard", "/admin-orders", "/admin-customers", "/admin-products",
-        "/admin-update", "admin-update-save", "/delete-product", "/add-product", "/manage-orders" , "/save-product","/admin-profile","/edit-product","/update-admin-profile","/update-ad-profile-post" 
-        ,"/view-stat", "/view-categories", "/product-delete", "update-category", "/add-category", "/view-brands", "/update-brand", "/add-brand"
+        "/dashboard", "/admin-orders", "/admin-customers", "/admin-products", "/admin-update", "/admin-update-save",
+        "/delete-product", "/add-product", "/manage-orders", "/save-product", "/admin-profile", "/edit-product",
+        "/update-admin-profile", "/update-ad-profile-post", "/view-stat", "/view-categories", "/product-delete",
+        "/update-category", "/add-category", "/view-brands", "/update-brand", "/add-brand",
+        // Staff-related endpoints
+        "/admin-staff", "/add-new-staff", "/admin-staff-edit", "/admin-staff-delete", "/update-staff-profile-post"
     };
 
     @Override
@@ -56,11 +58,11 @@ public class AuthenticatorFilter implements Filter {
                 ? CookieUtility.getCookie(request, "role").getValue()
                 : null;
 
-        if(uri.endsWith("/logout")) {
-        	chain.doFilter(request, response);
-        	return;
+        if (uri.endsWith("/logout")) {
+            chain.doFilter(request, response);
+            return;
         }
-        
+
         if (isLoggedIn && role == null) {
             SessionUtil.invalidateSession(request);
             response.sendRedirect(contextPath + LOGIN);
@@ -69,7 +71,7 @@ public class AuthenticatorFilter implements Filter {
 
         // Redirect away from login/register if already logged in
         if (isLoggedIn && (uri.endsWith(LOGIN) || uri.endsWith(REGISTER))) {
-            if ("admin".equals(role)) {
+            if ("admin".equals(role) || "staff".equals(role)) {
                 response.sendRedirect(contextPath + "/dashboard");
             } else if ("user".equals(role)) {
                 response.sendRedirect(contextPath + "/home");
@@ -92,7 +94,6 @@ public class AuthenticatorFilter implements Filter {
             if (uri.endsWith(page)) {
                 if (isLoggedIn && "user".equals(role)) {
                     chain.doFilter(req, res);
-                    return;
                 } else {
                     response.sendRedirect(contextPath + LOGIN);
                 }
@@ -105,18 +106,19 @@ public class AuthenticatorFilter implements Filter {
             if (uri.endsWith(page)) {
                 if (isLoggedIn && "admin".equals(role)) {
                     chain.doFilter(req, res);
-                    return;
                 } else {
                     response.sendRedirect(contextPath + LOGIN);
                 }
                 return;
             }
         }
+
+        // If nothing matched, redirect to login
+        response.sendRedirect(contextPath + LOGIN);
     }
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void destroy() {
+
+    }
 }

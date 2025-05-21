@@ -36,7 +36,7 @@ public class LoginDAO {
 	 * @return true if the user credentials are valid, false otherwise; null if a
 	 *         connection error occurs
 	 */
-	public Boolean logUserIN(HttpServletRequest request,String email, String password) {
+	public Boolean logUserIN(HttpServletRequest request, String email, String password) {
 		if (isConnectionError) {
 			System.out.println("Connection Error!");
 			return null;
@@ -46,10 +46,11 @@ public class LoginDAO {
 		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
 			stmt.setString(1, email);
 			ResultSet result = stmt.executeQuery();
-			
+
 			if (result.next()) {
-				
-				return validateUserAndPassword(result, request, email, password, result.getString("username"), result.getInt("user_id"), result.getString("role"));
+
+				return validateUserAndPassword(result, request, email, password, result.getString("username"),
+						result.getInt("user_id"), result.getString("role"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,18 +69,19 @@ public class LoginDAO {
 	 * @return true if the passwords match, false otherwise
 	 * @throws SQLException if a database access error occurs
 	 */
-	private boolean validateUserAndPassword(ResultSet result, HttpServletRequest request, String email, String password,String username, int id, String role) throws SQLException {
+	private boolean validateUserAndPassword(ResultSet result, HttpServletRequest request, String email, String password,
+			String username, int id, String role) throws SQLException {
 		String dbEmail = result.getString("email");
 		String dbPassword = result.getString("password");
 
-		Boolean isCorrect = dbEmail.equals(email)
-				&& EncryptDecryptUtil.decrypt(dbPassword).equals(password);
-		
-		if(isCorrect) {
+		Boolean isCorrect = dbEmail.equals(email) && EncryptDecryptUtil.decrypt(dbPassword).equals(password);
+
+		if (isCorrect) {
 			SessionUtil.setAttribute(request, "username", username);
-			SessionUtil.setAttribute(request,"id",id );
-			SessionUtil.setAttribute(request,"role",role.toLowerCase());
+			SessionUtil.setAttribute(request, "id", id);
+			SessionUtil.setAttribute(request, "role", role.toLowerCase());
+			System.out.println("from role "+ SessionUtil.getAttribute(request,"role"));
 		}
-		return isCorrect;
+		return isCorrect;	
 	}
 }

@@ -181,7 +181,7 @@
 
 <div class="profile-container">
     <div class="profile-image">
-        <img src="https://via.placeholder.com/220" alt="Profile Picture">
+        <img src="https://cdn.britannica.com/89/7489-050-D0E7DF35/West-African-chimpanzee-pan-troglodytes.jpg" alt="Profile Picture">
     </div>
     <div class="profile-info">
         <h2>${userDetails.firstName} ${userDetails.lastName}</h2>
@@ -221,8 +221,6 @@
     </div>
 </div>
 
-<!-- Font Awesome for icons -->
-<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
