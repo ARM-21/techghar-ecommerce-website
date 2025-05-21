@@ -1,13 +1,24 @@
 package com.techghar.utility;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+/**
+ * ImageUtility provides methods for handling image uploads and processing.
+ * This utility class manages saving uploaded images to the server and related operations.
+ */
 public class ImageUtility {
-	public static String fileWriter(HttpServletRequest request, HttpServletResponse response, Part image) {
+   
+    public static String fileWriter(HttpServletRequest request, HttpServletResponse response, Part image) {
 
 		try {
 			
@@ -33,5 +44,4 @@ public class ImageUtility {
 			return null;
 		}
 	}
-
 }

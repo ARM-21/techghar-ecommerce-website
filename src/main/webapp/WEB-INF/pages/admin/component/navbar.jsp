@@ -23,45 +23,44 @@
 
 <body>
 	<!-- ========== HEADER SECTION ========== -->
-	<header class="header">
-    <!-- Logo -->
-    <div class="logo">
-        <c:choose>
-            <c:when test="${sessionScope.role == 'admin'}">
-                <h1>TechGhar Admin</h1>
-            </c:when>
-            <c:when test="${sessionScope.role == 'staff'}">
-                <h1>TechGhar Staff</h1>
-            </c:when>
-            <c:otherwise>
-                <h1>TechGhar</h1>
-            </c:otherwise>
-        </c:choose>
-    </div>
+	<header class="header"> <!-- Logo -->
+	<div class="logo">
+		<c:choose>
+			<c:when test="${sessionScope.role == 'admin'}">
+				<h1>TechGhar Admin</h1>
+			</c:when>
+			<c:when test="${sessionScope.role == 'staff'}">
+				<h1>TechGhar Staff</h1>
+			</c:when>
+			<c:otherwise>
+				<h1>TechGhar</h1>
+			</c:otherwise>
+		</c:choose>
+	</div>
 
-    <!-- User information section -->
-    <div class="user-info">
-        <!-- User icon -->
-        <div class="user-image">
-            <i class="fas fa-user"></i>
-        </div>
+	<!-- User information section -->
+	<div class="user-info">
+		<!-- User icon -->
+		<div class="user-image">
+			<i class="fas fa-user"></i>
+		</div>
 
-        <!-- Display username from session or fallback to 'Admin' -->
-        <c:choose>
-            <c:when test="${not empty sessionScope.username}">
-                <div class="user-name">${sessionScope.username}</div>
-            </c:when>
-            <c:otherwise>
-                <div class="user-name">Admin</div>
-            </c:otherwise>
-        </c:choose>
-    </div>
+		<!-- Display username from session or fallback to 'Admin' -->
+		<c:choose>
+			<c:when test="${not empty sessionScope.username}">
+				<div class="user-name">${sessionScope.username}</div>
+			</c:when>
+			<c:otherwise>
+				<div class="user-name">Admin</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
 
-    <!-- Mobile toggle button for sidebar -->
-    <div class="mobile-toggle" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </div>
-</header>
+	<!-- Mobile toggle button for sidebar -->
+	<div class="mobile-toggle" id="sidebarToggle">
+		<i class="fas fa-bars"></i>
+	</div>
+	</header>
 
 
 	<!-- ========== SIDEBAR MENU ========== -->
@@ -102,11 +101,14 @@
 					class="fas fa-tags"></i> <span>Brands</span>
 			</a></li>
 		</c:if>
-
-		<!-- Orders (shared) -->
 		<li><a href="/admin-orders"
 			class="${activePage == 'admin-orders' ? 'active' : ''}"> <i
 				class="fas fa-shopping-cart"></i> <span>Orders</span>
+		</a></li>
+		<!-- Orders (shared) -->
+		<li><a href="/admin-carousel"
+			class="${activePage == 'admin-carousel' ? 'active' : ''}"> <i
+				class="fas fa-shopping-cart"></i> <span>Carousel</span>
 		</a></li>
 
 		<!-- Customers (admin only) -->
@@ -114,6 +116,12 @@
 			<li><a href="/admin-customers"
 				class="${activePage == 'admin-customers' ? 'active' : ''}"> <i
 					class="fas fa-users"></i> <span>Customers</span>
+			</a></li>
+		</c:if>
+		<c:if test="${sessionScope.role == 'admin'}">
+			<li><a href="/admin-reports"
+				class="${activePage == 'admin-reports' ? 'active' : ''}"> <i
+					class="fas fa-user-tie"></i> <span>Report</span>
 			</a></li>
 		</c:if>
 

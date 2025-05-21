@@ -28,10 +28,10 @@ public class AuthenticatorFilter implements Filter {
     private static final String[] ADMIN_PAGES = {
         "/dashboard", "/admin-orders", "/admin-customers", "/admin-products", "/admin-update", "/admin-update-save",
         "/delete-product", "/add-product", "/manage-orders", "/save-product", "/admin-profile", "/edit-product",
-        "/update-admin-profile", "/update-ad-profile-post", "/view-stat", "/view-categories", "/product-delete",
-        "/update-category", "/add-category", "/view-brands", "/update-brand", "/add-brand",
+        "/update-admin-profile", "/update-ad-profile-post", "/view-stat", "/view-categories", "/product-delete","/admin-reports",
+        "/update-category", "/add-category", "/view-brands", "/update-brand", "/add-brand","/admin-carousel","/delete-carousel-item","/add-carousel-item",
         // Staff-related endpoints
-        "/admin-staff", "/add-new-staff", "/admin-staff-edit", "/admin-staff-delete", "/update-staff-profile-post"
+        "/admin-staff", "/add-new-staff", "/admin-staff-add","/admin-staff-save","/admin-staff-delete","/update-staff-profile", "/update-staff-profile-post"
     };
 
     @Override

@@ -1,0 +1,296 @@
+/* Admin Base Styles */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.admin-header h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Buttons */
+.btn-add {
+    background-color: #3498db;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-add:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.btn-edit, .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-edit {
+    background-color: #2ecc71;
+    margin-right: 0.5rem;
+}
+
+.btn-edit:hover {
+    background-color: #27ae60;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-table th {
+    background-color: #3498db;
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e7ff;
+    vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Image Thumbnail */
+.carousel-thumbnail {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Description Cell */
+.description-cell {
+    max-width: 300px;
+}
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* No Items Message */
+.no-items-message {
+    background-color: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #7f8c8d;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.modal h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.modal p {
+    color: #34495e;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn-secondary, .btn-danger {
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close:hover {
+    color: #34495e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-content {
+        padding: 1rem;
+    }
+    
+    .admin-table th, 
+    .admin-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .description-cell {
+        max-width: 150px;
+    }
+    
+    .modal-content {
+        margin: 20% auto;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .btn-add {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .actions-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .btn-edit, 
+    .btn-delete {
+        width: 100%;
+    }
+}
