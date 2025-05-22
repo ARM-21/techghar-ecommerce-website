@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.techghar.DAO.CategoryDAO;
-import com.techghar.DAO.ProductDAO;
+import com.techghar.dao.CategoryDAO;
+import com.techghar.dao.ProductDAO;
 import com.techghar.model.Category;
 import com.techghar.utility.ErrorHandlerUtilty;
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.techghar.DAO.LoginDAO;
+import com.techghar.dao.LoginDAO;
 import com.techghar.utility.CookieUtility;
 import com.techghar.utility.SessionUtil;
 

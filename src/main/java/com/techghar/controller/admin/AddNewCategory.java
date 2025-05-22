@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.CategoryDAO;
+import com.techghar.dao.CategoryDAO;
 import com.techghar.model.Category;
 import com.techghar.utility.ErrorHandlerUtilty;
 

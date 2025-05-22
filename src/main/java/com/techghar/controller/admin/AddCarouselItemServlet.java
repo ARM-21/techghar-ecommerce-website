@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
-import com.techghar.DAO.CarouselDAO;
+import com.techghar.dao.CarouselDAO;
 import com.techghar.model.CarouselItem;
 import com.techghar.utility.ImageUtility;
 

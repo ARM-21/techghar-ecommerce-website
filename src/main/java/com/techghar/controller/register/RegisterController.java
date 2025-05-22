@@ -13,7 +13,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-import com.techghar.DAO.RegisterDAO;
+
+import com.techghar.dao.RegisterDAO;
 import com.techghar.model.UserModel;
 import com.techghar.utility.EncryptDecryptUtil;
 import com.techghar.utility.ValidatorUtility;

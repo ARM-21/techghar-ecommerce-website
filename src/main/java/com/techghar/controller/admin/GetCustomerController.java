@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.UserDAO;
+import com.techghar.dao.UserDAO;
 import com.techghar.model.UserModel;
 
 /**

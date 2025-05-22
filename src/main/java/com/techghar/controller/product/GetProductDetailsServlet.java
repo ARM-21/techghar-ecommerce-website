@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.ProductDAO;
+import com.techghar.dao.ProductDAO;
 import com.techghar.model.Product;
 
 /**

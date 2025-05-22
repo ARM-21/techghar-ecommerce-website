@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.OrderDAO;
-import com.techghar.DAO.StatisticDAO;
+import com.techghar.dao.OrderDAO;
+import com.techghar.dao.StatisticDAO;
 
 /**
  * Servlet implementation class DashboardController

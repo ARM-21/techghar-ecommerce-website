@@ -1,4 +1,4 @@
-package com.techghar.DAO;
+package com.techghar.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

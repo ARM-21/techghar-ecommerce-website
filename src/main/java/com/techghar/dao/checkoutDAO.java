@@ -1,4 +1,4 @@
-package com.techghar.DAO;
+package com.techghar.dao;
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.CartItem;
 import java.sql.Connection;

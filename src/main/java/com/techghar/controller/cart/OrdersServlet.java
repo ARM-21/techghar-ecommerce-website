@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
+import com.techghar.dao.OrderDAO;
 import com.techghar.model.DeliveryModel;
 import com.techghar.model.OrderItem;
 import com.techghar.model.OrderModel;
-import com.techghar.DAO.OrderDAO;
-
 import com.techghar.utility.SessionUtil;
 
 

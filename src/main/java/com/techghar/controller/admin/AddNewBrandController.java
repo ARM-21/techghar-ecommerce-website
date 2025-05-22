@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.BrandDAO;
+import com.techghar.dao.BrandDAO;
 import com.techghar.model.Brand;
 import com.techghar.utility.ErrorHandlerUtilty;
 

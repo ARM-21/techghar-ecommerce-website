@@ -1,4 +1,4 @@
-package com.techghar.DAO;
+package com.techghar.dao;
 
 import java.io.IOException;
 import java.sql.Connection;

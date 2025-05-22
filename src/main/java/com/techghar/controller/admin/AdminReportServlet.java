@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.ReportDAO;
+import com.techghar.dao.ReportDAO;
 import com.techghar.model.BrandSalesReport;
 import com.techghar.model.CategorySalesReport;
 import com.techghar.model.CustomerPurchaseReport;

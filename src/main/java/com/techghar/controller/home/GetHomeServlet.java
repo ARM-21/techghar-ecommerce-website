@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.techghar.DAO.CarouselDAO;
-import com.techghar.DAO.ProductDAO;
+import com.techghar.dao.CarouselDAO;
+import com.techghar.dao.ProductDAO;
 import com.techghar.model.CarouselItem;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;

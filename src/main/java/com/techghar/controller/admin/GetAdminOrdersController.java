@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.OrderDAO;
+import com.techghar.dao.OrderDAO;
 import com.techghar.databaseConnection.DatabaseConnection;
 import com.techghar.model.OrderItem;
 import com.techghar.model.OrderModel;

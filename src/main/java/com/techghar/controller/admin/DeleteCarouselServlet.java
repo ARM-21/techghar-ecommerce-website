@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.techghar.DAO.CarouselDAO;
+import com.techghar.dao.CarouselDAO;
 
 /**
  * DeleteCarouselItemServlet is responsible for handling the deletion of

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.techghar.DAO.UserDAO;
+import com.techghar.dao.UserDAO;
 import com.techghar.model.UserModel;
 import com.techghar.utility.EncryptDecryptUtil;
 import com.techghar.utility.ErrorHandlerUtilty;

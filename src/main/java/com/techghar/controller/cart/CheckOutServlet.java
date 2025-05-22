@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.techghar.DAO.CartDAO;
-import com.techghar.DAO.checkoutDAO;
+import com.techghar.dao.CartDAO;
+import com.techghar.dao.checkoutDAO;
 import com.techghar.model.CartItem;
 import com.techghar.utility.SessionUtil;
 

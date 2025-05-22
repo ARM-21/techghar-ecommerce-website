@@ -1,5 +1,5 @@
 <%@page import="com.techghar.model.Product"%>
-<%@page import="com.techghar.DAO.ProductDAO"%>
+<%@page import="com.techghar.dao.ProductDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>

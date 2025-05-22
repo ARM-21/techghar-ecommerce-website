@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.techghar.DAO.CarouselDAO;
+import com.techghar.dao.CarouselDAO;
 import com.techghar.model.CarouselItem;
 import com.techghar.utility.ErrorHandlerUtilty;
 
