@@ -32,7 +32,8 @@ public class DeleteProductController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		response.sendRedirect("admin-products");
 	}
 
 	/**
@@ -71,26 +72,5 @@ public class DeleteProductController extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
-		
-//		dao.deleteProductById()
-		
-//		System.out.println("product Added" + productAddedSuccessfully);
-//		if (productAddedSuccessfully) {
-//			request.setAttribute("message", "✅ Product added successfully!");
-//			request.setAttribute("messageType", "success");
-//			
-//		} else {
-//			request.setAttribute("message", "❌ Failed to add product.");
-//			request.setAttribute("messageType", "error");
-//			return;
-//		}
-		
-	}
 
 }

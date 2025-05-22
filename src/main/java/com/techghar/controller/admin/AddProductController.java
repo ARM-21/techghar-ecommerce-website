@@ -103,7 +103,6 @@ public class AddProductController extends HttpServlet {
 			product.setDescription(request.getParameter("description"));
 			product.setImageURL(request.getParameter("imageUrl"));
 			product.setStock(Integer.parseInt(request.getParameter("stock")));
-			product.setRating(Integer.parseInt(request.getParameter("rating")));
 
 			// for image uploading
 
