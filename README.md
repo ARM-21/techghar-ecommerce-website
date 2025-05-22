@@ -11,7 +11,7 @@ This is a comprehensive e-commerce management system built with:
 
 Backend: Java with JSP/Servlets
 
-Frontend: HTML, CSS, JavaScript
+Frontend: HTML, CSS, JavaScript, java standard server pages(jsp)
 
 Database: MariaDB
 
@@ -104,7 +104,7 @@ Deploy the project
 Import the project into your IDE (Eclipse/IntelliJ).
 
 Deploy to Apache Tomcat server.
-
+Right click on project, open properties, find web project settings, change context path from any to "/"
 Access the application
 
 Open your browser and navigate to http://localhost:8080/home
