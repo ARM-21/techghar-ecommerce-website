@@ -131,9 +131,6 @@ Manoj Neupane, Jonsen Gaire, Saurav Shrestha, Shishir Roka, and Basanta Roka.
 If you want to know more, feel free to ask.
 
 ---
-## Contact
-
-If you want to know more, feel free to ask.
 
 ---
   add necessary part
