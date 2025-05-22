@@ -34,9 +34,8 @@ public class ImageUtility {
 			image.write(storePath + File.separator + filePath);
 
 			System.out.println("File uploaded");
-			return  filePath;
-			// TODO: Write respective DAO process to store all attributes and filePath to
-			// database
+			 return  filePath.replace("\\", "/");
+
 
 		} catch (Exception e) {
 			System.out.println("File not uploaded");

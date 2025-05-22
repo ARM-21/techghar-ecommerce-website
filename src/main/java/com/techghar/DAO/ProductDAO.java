@@ -183,6 +183,7 @@ public class ProductDAO {
 			product.setRating(rs.getInt("rating"));
 			product.setBrand(rs.getInt("brand_id"));
 			product.setCategory(rs.getInt("category_id"));
+			product.setImageURL(rs.getString("imageURL"));
 			products.add(product);
 		}
 

@@ -79,12 +79,12 @@
 		</a></li>
 
 		<!-- Products (admin only) -->
-		<c:if test="${sessionScope.role == 'admin'}">
+	
 			<li><a href="/admin-products"
 				class="${activePage == 'admin-products' ? 'active' : ''}"> <i
 					class="fas fa-mobile-alt"></i> <span>Products</span>
 			</a></li>
-		</c:if>
+
 
 		<!-- Categories (admin only) -->
 		<c:if test="${sessionScope.role == 'admin'}">

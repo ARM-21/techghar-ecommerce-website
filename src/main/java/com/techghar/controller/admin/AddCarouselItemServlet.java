@@ -1,5 +1,6 @@
 package com.techghar.controller.admin;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -31,13 +32,14 @@ public class AddCarouselItemServlet extends HttpServlet {
 
         if (filePart == null || filePart.getSize() == 0) {
             request.setAttribute("errorMessage", "Image is required.");
-            request.getRequestDispatcher("/WEB-INF/views/admin/add-carousel-item.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/addCarouselItem.jsp").forward(request, response);
             return;
         }
 
         try {
             String filePath = ImageUtility.fileWriter(request, response, filePart);
-            CarouselItem item = new CarouselItem(title, description, "/" + filePath);
+            System.out.println(filePath);
+            CarouselItem item = new CarouselItem(title, description,filePath);
 
             boolean success = new CarouselDAO().addCarouselItem(item);
 
@@ -46,7 +48,7 @@ public class AddCarouselItemServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin-carousel");
             } else {
                 request.setAttribute("errorMessage", "Failed to add carousel item.");
-                request.getRequestDispatcher("/WEB-INF/views/admin/add-carousel-item.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/admin/addCarouselItem.jsp").forward(request, response);
             }
 
         } catch (ClassNotFoundException | SQLException e) {

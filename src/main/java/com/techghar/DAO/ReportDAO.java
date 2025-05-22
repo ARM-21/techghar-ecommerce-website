@@ -142,16 +142,7 @@ public class ReportDAO {
 		calendar.add(Calendar.DAY_OF_MONTH, -6);
 		Date startDate = calendar.getTime();
 
-		String query = """
-				    SELECT o.order_date AS date,
-				           COUNT(DISTINCT o.user_id) AS number_of_customers,
-				           COUNT(DISTINCT o.order_id) AS number_of_orders,
-				           SUM(o.total_price) AS total_revenue
-				    FROM orders o
-				    WHERE o.order_date BETWEEN ? AND ?
-				    GROUP BY o.order_date
-				    ORDER BY o.order_date
-				""";
+		String query = "SELECT DATE(o.order_date) AS order_date,  COUNT(DISTINCT o.user_id) AS number_of_customers ,COUNT(DISTINCT o.order_id) AS number_of_orders, SUM(oi.subtotal) AS total_revenue FROM orders o JOIN order_items oi ON o.order_id = oi.order_id WHERE o.order_date BETWEEN ? AND ? GROUP BY DATE(o.order_date) ORDER BY DATE(o.order_date);";
 
 		try (PreparedStatement stmt = conn.prepareStatement(query)) {
 			stmt.setDate(1, new java.sql.Date(startDate.getTime()));
@@ -160,7 +151,7 @@ public class ReportDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Date date = rs.getDate("date");
+				Date date = rs.getDate("order_date");
 				int numberOfCustomers = rs.getInt("number_of_customers");
 				int numberOfOrders = rs.getInt("number_of_orders");
 				double totalRevenue = rs.getDouble("total_revenue");

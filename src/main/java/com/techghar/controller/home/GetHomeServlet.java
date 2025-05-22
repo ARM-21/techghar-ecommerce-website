@@ -23,6 +23,7 @@ public class GetHomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		// carousel data
 		List<Product> products = null;
+		String sort = null;
 		try {
 			
 			ProductDAO productDAO = new ProductDAO();
@@ -38,7 +39,7 @@ public class GetHomeServlet extends HttpServlet {
 			else {
 				request.setAttribute("carouselItems", carouselItems);
 				request.setAttribute("activePage", "home");
-				String sort = request.getParameter("sort");
+				 sort = request.getParameter("sort");
 				
 				System.out.println(sort);
 				if(sort != null) {
@@ -49,7 +50,11 @@ public class GetHomeServlet extends HttpServlet {
 			}
 			
 			// product data
-			 products = productDAO.getAllProducts("price-low");	
+			
+			if(sort == null) {
+				
+				products = productDAO.getAllProducts("price-low");	
+			}
 		
 
 			request.setAttribute("products", products);
