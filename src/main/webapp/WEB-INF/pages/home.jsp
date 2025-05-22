@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>TechGhar Ecommerce Website</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/header.css" />
 </head>

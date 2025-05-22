@@ -189,7 +189,7 @@ body {
 					</div>
 					<div class="form-section">
 						<label for="phone">Phone Number:</label> 
-						<input type="number" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+						<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
 					</div>
 					<div class="form-section">
 						<label for="street">Street Address:</label> <input type="text"
