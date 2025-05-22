@@ -51,7 +51,7 @@ public class EncryptDecryptUtil {
 	}
 
 	public static void main(String[] args) {
-		String password = "admin@123";
+		String password = "customer@123";
 		EncryptDecryptUtil ed = new EncryptDecryptUtil();
 		String encryptPassword = ed.encrypt(password);
 		System.out.println(encryptPassword);
