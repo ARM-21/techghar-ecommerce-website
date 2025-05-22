@@ -11,7 +11,7 @@ This is a comprehensive e-commerce management system built with:
 
 Backend: Java with JSP/Servlets
 
-Frontend: HTML, CSS, JavaScript
+Frontend: HTML, CSS, JavaScript, java standard server pages(jsp)
 
 Database: MariaDB
 
