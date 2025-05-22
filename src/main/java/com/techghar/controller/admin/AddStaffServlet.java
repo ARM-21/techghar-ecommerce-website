@@ -46,52 +46,73 @@ public class AddStaffServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	@Override
+	/**
+	 * Handles the HTTP POST request to add a new staff member.
+	 *
+	 * @param request  the HttpServletRequest containing staff form data
+	 * @param response the HttpServletResponse used to forward or handle errors
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			UserModel user = new UserModel();
-			UserDAO userDao = new UserDAO();
-			user.setFirstName(request.getParameter("firstName"));
-			user.setLastName(request.getParameter("lastName"));
-			user.setEmail(request.getParameter("email"));
+	        throws ServletException, IOException {
+	    try {
+	        // Create a new UserModel to store staff details
+	        UserModel user = new UserModel();
+	        UserDAO userDao = new UserDAO();
 
-			String password = request.getParameter("password");
-			String encPassword = EncryptDecryptUtil.encrypt(password);
-			user.setPassword(encPassword);
-			user.setPhone(request.getParameter("phone"));
-			user.setAddress(request.getParameter("address"));
-			user.setUsername(request.getParameter("username"));
-			user.setDob(Date.valueOf(request.getParameter("dob")));
-			user.setGender(request.getParameter("gender"));
-			user.setRole("STAFF");
+	        // Populate user details from request parameters
+	        user.setFirstName(request.getParameter("firstName"));
+	        user.setLastName(request.getParameter("lastName"));
+	        user.setEmail(request.getParameter("email"));
 
-			userDao.saveStaff(user);
-			request.setAttribute("message", "Staff Added Successfully");
-			request.setAttribute("activePage", "admin-staff");
-			request.setAttribute("pageContent", "staff.jsp");
-			
-			String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
-			request.setAttribute("js", jsCode);
-			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+	        // Encrypt the password before storing it
+	        String password = request.getParameter("password");
+	        String encPassword = EncryptDecryptUtil.encrypt(password);
+	        user.setPassword(encPassword);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("errorMessage", "Added Un Successful" + e.getMessage());
-			request.setAttribute("activePage", "admin-staff");
-			request.setAttribute("pageContent", "staff.jsp");
-			
-			String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
-			request.setAttribute("js", jsCode);
-			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-//            ErrorHandlerUtilty.handleErrorAdmin(request, response, e.getMessage());
-		}
-		
-		
+	        user.setPhone(request.getParameter("phone"));
+	        user.setAddress(request.getParameter("address"));
+	        user.setUsername(request.getParameter("username"));
+	        user.setDob(Date.valueOf(request.getParameter("dob")));
+	        user.setGender(request.getParameter("gender"));
+	        user.setRole("STAFF"); // Set default role as STAFF
+
+	        // Save the new staff member to the database
+	        userDao.saveStaff(user);
+
+	        // Set success message and attributes for the dashboard
+	        request.setAttribute("message", "Staff Added Successfully");
+	        request.setAttribute("activePage", "admin-staff");
+	        request.setAttribute("pageContent", "staff.jsp");
+
+	        // JavaScript to redirect to staff list after a short delay
+	        String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
+	        request.setAttribute("js", jsCode);
+
+	        // Forward the request to the admin dashboard
+	        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+
+	    } catch (Exception e) {
+	        // Log the exception and prepare an error response
+	        e.printStackTrace();
+	        request.setAttribute("errorMessage", "Added Un Successful" + e.getMessage());
+	        request.setAttribute("activePage", "admin-staff");
+	        request.setAttribute("pageContent", "staff.jsp");
+
+	        // JavaScript to redirect to staff list after a short delay
+	        String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
+	        request.setAttribute("js", jsCode);
+
+	        // Forward the request back to the dashboard with error message
+	        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+
+	        // Optionally, use the utility for consistent error handling
+	        // ErrorHandlerUtilty.handleErrorAdmin(request, response, e.getMessage());
+	    }
 	}
+
 
 }

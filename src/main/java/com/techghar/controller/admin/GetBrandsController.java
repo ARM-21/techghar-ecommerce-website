@@ -36,22 +36,40 @@ public class GetBrandsController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<Brand> brands;
-		try {
-			
-			brands = brandDAO.getAllBrands();
-	        request.setAttribute("brandList", brands);
-	        request.setAttribute("activePage", "view-brands");
-	        request.setAttribute("pageContent", "manageBrands.jsp");
-	        request.getRequestDispatcher( "WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Server is facing issue while fetching category");
-		}
-	}
+    /**
+     * Handles the HTTP GET request to fetch and display all brands.
+     *
+     * @param request  the HttpServletRequest to retrieve data and set attributes
+     * @param response the HttpServletResponse used to forward the request
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Declare list to hold brand objects fetched from database
+        List<Brand> brands;
+        try {
+            // Retrieve all brands from database using brandDAO
+            brands = brandDAO.getAllBrands();
+
+            // Set the brand list as a request attribute for the JSP page
+            request.setAttribute("brandList", brands);
+
+            // Set the active page indicator for UI navigation highlighting
+            request.setAttribute("activePage", "view-brands");
+
+            // Set the content page to be included in the dashboard layout
+            request.setAttribute("pageContent", "manageBrands.jsp");
+
+            // Forward request and response to the admin dashboard JSP for rendering
+            request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+        } catch (SQLException e) {
+            // Log the exception stack trace for debugging
+            e.printStackTrace();
+
+            // Handle error by forwarding to an error handler utility with a custom message
+            ErrorHandlerUtilty.handleErrorAdmin(request, response, "Server is facing issue while fetching category");
+        }
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

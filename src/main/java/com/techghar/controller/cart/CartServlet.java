@@ -15,47 +15,69 @@ import com.techghar.dao.CartDAO;
 import com.techghar.model.CartItem;
 import com.techghar.utility.SessionUtil;
 
-
-
+/**
+ * Servlet that handles displaying the user's shopping cart contents.
+ * Supports asynchronous requests and maps to the "/cart" URL pattern.
+ */
 @WebServlet(asyncSupported = true, urlPatterns = {"/cart"})
 public class CartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
- 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    try {
-	      
-	      
-	    	int userId = (int) SessionUtil.getAttribute(request,"id");
+    private static final long serialVersionUID = 1L;
 
-	       
-	        CartDAO cartDAO = new CartDAO();
-	        List<CartItem> cartItems = cartDAO.getCartItems(userId);
-	        double cartTotal = cartDAO.getCartTotal(userId);
-	        int cartCount = cartDAO.getCartItemCount(userId);
-	        
-	        request.setAttribute("cartProducts", cartItems);
-	        
-	        request.setAttribute("cartTotal", cartTotal);
-	        
-	       
-	        request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
-	        
-	        
+    /**
+     * Handles GET requests to display the user's cart page.
+     *
+     * Retrieves the current user's cart items, total price, and item count
+     * then forwards the request to the cart JSP for rendering.
+     *
+     * @param request  the HttpServletRequest containing session info
+     * @param response the HttpServletResponse to forward or respond with
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Retrieve user ID from session using utility
+            int userId = (int) SessionUtil.getAttribute(request, "id");
 
-	    } catch (SQLException e) {
-	        throw new ServletException("Database error while loading cart", e);
-	    } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+            // Create DAO instance to interact with cart data
+            CartDAO cartDAO = new CartDAO();
 
+            // Fetch list of cart items for the user
+            List<CartItem> cartItems = cartDAO.getCartItems(userId);
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            // Calculate total price of all items in the cart
+            double cartTotal = cartDAO.getCartTotal(userId);
 
-		doGet(request, response);
-	}
+            // Fetch total number of items in the cart
+            int cartCount = cartDAO.getCartItemCount(userId);
+
+            // Set cart data as request attributes for JSP access
+            request.setAttribute("cartProducts", cartItems);
+            request.setAttribute("cartTotal", cartTotal);
+
+            // Forward to cart JSP page for rendering
+            request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
+
+        } catch (SQLException e) {
+            // Wrap SQL exceptions as ServletException for container handling
+            throw new ServletException("Database error while loading cart", e);
+        } catch (ClassNotFoundException e) {
+            // Handle class loading issues (e.g., JDBC driver missing)
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handles POST requests by delegating to doGet method.
+     *
+     * @param request  the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
 }

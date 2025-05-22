@@ -33,34 +33,47 @@ public class GetProductsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	/**
+	 * Handles HTTP GET request to retrieve and display products for the admin panel.
+	 * Supports optional search by product name.
+	 *
+	 * @param request  the HttpServletRequest containing parameters and attributes
+	 * @param response the HttpServletResponse used for forwarding
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	    try {
+	        // Create ProductDAO instance to interact with product data
+	        ProductDAO productDAO = new ProductDAO();
+	        ArrayList<Product> products;
 
-		try {
-
-			ProductDAO productDAO = new ProductDAO();
-			ArrayList<Product> products;
-
-
-		    String searchQuery = request.getParameter("search");
-		    if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-		        products = productDAO.searchProductsByName(searchQuery);
-		        
-		        System.out.println(products.toString());
-		    } else {
-		        products = productDAO.getAllProducts();
-		    }
-			
-			request.setAttribute("products", products);
-			request.setAttribute("activePage", "admin-products");
-			request.setAttribute("pageContent", "./products.jsp");
-			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-		} catch (ServletException | IOException | ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Oops! Error While fetching data, Try Again Later");
-			e.printStackTrace();
-		}
+	        // Get the 'search' parameter from the request
+	        String searchQuery = request.getParameter("search");
+	        
+	        // If search query is provided and not empty, fetch products matching the name
+	        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+	            products = productDAO.searchProductsByName(searchQuery);
+	            System.out.println(products.toString()); // Debug: print matching products
+	        } else {
+	            // Otherwise, fetch all products
+	            products = productDAO.getAllProducts();
+	        }
+	        
+	        // Set products list as a request attribute for the JSP page to access
+	        request.setAttribute("products", products);
+	        
+	        // Set active page and content JSP to be rendered inside the admin dashboard
+	        request.setAttribute("activePage", "admin-products");
+	        request.setAttribute("pageContent", "./products.jsp");
+	        
+	        // Forward the request to the admin dashboard JSP for rendering
+	        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+	    } catch (ServletException | IOException | ClassNotFoundException | SQLException e) {
+	        // Handle errors by logging and showing a user-friendly message
+	        ErrorHandlerUtilty.handleErrorAdmin(request, response, "Oops! Error While fetching data, Try Again Later");
+	        e.printStackTrace();
+	    }
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

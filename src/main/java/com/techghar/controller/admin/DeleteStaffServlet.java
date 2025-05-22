@@ -26,41 +26,71 @@ public class DeleteStaffServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		boolean deleted;
-	    try {
-	    	String id = request.getParameter("id");
-		    UserDAO staffDAO = new UserDAO();
-		     deleted = false;
-	        deleted = staffDAO.deleteStaff(Integer.parseInt(id));
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        request.setAttribute("errorMessage", "Added Un Successful redirecting....." + e.getMessage());
-			request.setAttribute("activePage", "admin-staff");
-			request.setAttribute("pageContent", "staff.jsp");
-			
-			String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
-			request.setAttribute("js", jsCode);
-			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-	        return;
-	    }
-	    
-	    if (deleted) {
-	    	request.setAttribute("message", "Staff Deleted Successfully redirecting.........");
-			request.setAttribute("activePage", "admin-staff");
-			request.setAttribute("pageContent", "staff.jsp");
-			String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
-			request.setAttribute("js", jsCode);
-			request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-	    } else {
-	        request.setAttribute("errorMessage", "Staff not found or could not be deleted. redirecting .....");
-	        request.setAttribute("activePage", "admin-staff");
-			request.setAttribute("pageContent", "staff.jsp");
-			String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
-			request.setAttribute("js", jsCode);
-	        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-	    }
-	}
+    /**
+     * Handles the HTTP POST request to delete a staff user by their ID.
+     *
+     * @param request  the HttpServletRequest containing the staff ID parameter
+     * @param response the HttpServletResponse used to forward or display messages
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean deleted;
+        try {
+            // Retrieve the 'id' parameter from the request (staff user ID to delete)
+            String id = request.getParameter("id");
+
+            // Initialize UserDAO to perform staff deletion
+            UserDAO staffDAO = new UserDAO();
+
+            // Initialize deleted flag to false before attempting deletion
+            deleted = false;
+
+            // Attempt to delete the staff user with the given ID
+            deleted = staffDAO.deleteStaff(Integer.parseInt(id));
+
+        } catch (Exception e) {
+            // Log exception stack trace for debugging
+            e.printStackTrace();
+
+            // Set error message attribute to notify user/admin of failure
+            request.setAttribute("errorMessage", "Added Un Successful redirecting....." + e.getMessage());
+
+            // Set attributes to maintain page state on forwarding
+            request.setAttribute("activePage", "admin-staff");
+            request.setAttribute("pageContent", "staff.jsp");
+
+            // Add JavaScript code to redirect back to admin-staff page after 2 seconds
+            String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
+            request.setAttribute("js", jsCode);
+
+            // Forward to the admin dashboard page showing the message
+            request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+
+            // Exit method after forwarding
+            return;
+        }
+
+        if (deleted) {
+            // If deletion succeeded, set success message
+            request.setAttribute("message", "Staff Deleted Successfully redirecting.........");
+
+        } else {
+            // If deletion failed or staff not found, set error message
+            request.setAttribute("errorMessage", "Staff not found or could not be deleted. redirecting .....");
+        }
+
+        // Set attributes to maintain page state on forwarding
+        request.setAttribute("activePage", "admin-staff");
+        request.setAttribute("pageContent", "staff.jsp");
+
+        // Add JavaScript code to redirect back to admin-staff page after 2 seconds
+        String jsCode = "setTimeout(function() { window.location.href = 'admin-staff'; }, 2000);";
+        request.setAttribute("js", jsCode);
+
+        // Forward to the admin dashboard page showing the appropriate message
+        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+    }
+
 	}
 

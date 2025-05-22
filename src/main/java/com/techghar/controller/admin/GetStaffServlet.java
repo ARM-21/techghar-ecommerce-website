@@ -33,22 +33,36 @@ public class GetStaffServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    /**
+     * Handles HTTP GET request to fetch and display all staff users in admin panel.
+     *
+     * @param request  HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDAO dao;
-		try {
-			dao = new UserDAO();
-	        List<UserModel> staffList =dao.getAllStaff() ;
-	        request.setAttribute("staffList", staffList);
-	        request.setAttribute("activePage", "admin-staff");
-	        request.setAttribute("pageContent", "staff.jsp");
-	        request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			ErrorHandlerUtilty.handleErrorAdmin(request, response, e.getMessage());
-		}
+        try {
+            // Instantiate DAO to access user data
+            UserDAO dao = new UserDAO();
 
+            // Fetch list of all staff users
+            List<UserModel> staffList = dao.getAllStaff();
+
+            // Set attributes for JSP rendering
+            request.setAttribute("staffList", staffList);
+            request.setAttribute("activePage", "admin-staff");
+            request.setAttribute("pageContent", "staff.jsp");
+
+            // Forward to the admin dashboard JSP to display the staff list
+            request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+        } catch (ClassNotFoundException | SQLException e) {
+            // Log exception and handle error gracefully
+            e.printStackTrace();
+            ErrorHandlerUtilty.handleErrorAdmin(request, response, e.getMessage());
+        }
     }
+
     
 
 	/**

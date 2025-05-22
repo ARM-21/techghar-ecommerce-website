@@ -32,45 +32,55 @@ public class DeleteProductController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		response.sendRedirect("admin-products");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	/**
+	 * Handles the HTTP POST request to delete a product by its ID.
+	 *
+	 * @param request  the HttpServletRequest containing the product ID parameter
+	 * @param response the HttpServletResponse used for redirection or error handling
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-			ProductDAO dao = new ProductDAO();
-			String id = request.getParameter("id");
-			
-			if(id != null) {
-				int idParam = Integer.parseInt(id);
-				System.out.println(idParam);
-				Boolean isDeleted = dao.deleteProductById(idParam);
-				System.out.println("product is deleted "+ isDeleted);
-				
-				if(isDeleted) {
+	    try {
+	        // Create DAO instance to perform product operations
+	        ProductDAO dao = new ProductDAO();
 
-					response.sendRedirect("admin-products?message=Product+deleted");	;
+	        // Retrieve the 'id' parameter from the request (product ID to delete)
+	        String id = request.getParameter("id");
 
-				}
-			}
-			
-			 response.setStatus(404);
-			 return;
-			
-			
-			
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			response.sendError(501, "server Side error occured");
-			e.printStackTrace();
-		}
-	
+	        // Check if ID is provided
+	        if (id != null) {
+	            // Parse the product ID from string to integer
+	            int idParam = Integer.parseInt(id);
+	            System.out.println(idParam); // Debug: print the product ID
+
+	            // Attempt to delete the product with the specified ID
+	            Boolean isDeleted = dao.deleteProductById(idParam);
+	            System.out.println("product is deleted " + isDeleted); // Debug: print deletion result
+
+	            // If deletion was successful, redirect with success message
+	            if (isDeleted) {
+	                response.sendRedirect("admin-products?message=Product+deleted");
+	                return; // exit after redirect
+	            }
+	        }
+
+	        // If no ID is provided or deletion failed, set HTTP 404 Not Found status
+	        response.setStatus(404);
+	        return;
+
+	    } catch (ClassNotFoundException | SQLException e) {
+	        // On server-side exception, send HTTP 501 error response
+	        response.sendError(501, "server Side error occured");
+
+	        // Log the stack trace for debugging
+	        e.printStackTrace();
+	    }
 	}
-
-
 }

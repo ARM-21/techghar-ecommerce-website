@@ -38,52 +38,93 @@ public class GetAdminOrdersController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
+	
+    /**
+     * Handles the HTTP GET request to display all orders with their delivery details.
+     *
+     * @param request  the HttpServletRequest used to pass data to the view
+     * @param response the HttpServletResponse used to forward or handle errors
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Initialize OrderDAO to interact with orders in the database
             OrderDAO orderDAO = new OrderDAO();
+
+            // Retrieve all orders along with their delivery information
             List<OrderModel> orders = orderDAO.getAllOrdersWithDelivery();
 
-            // Get items for each order
+            // For each order, fetch and set the associated order items
             for (OrderModel order : orders) {
-            	System.out.println(order.getId());
+                System.out.println(order.getId()); // Debug: print order ID
+
+                // Get list of items for the current order
                 List<OrderItem> items = orderDAO.getOrderItemsByOrderId(order.getId());
-                System.out.println(items.get(0).getOrderId());
+
+                System.out.println(items.get(0).getOrderId()); // Debug: print order ID from first item
+
+                // Associate the order items with the current order object
                 order.setOrderItems(items);
             }
 
+            // Set orders list and UI attributes for rendering
             request.setAttribute("orders", orders);
-	        request.setAttribute("activePage", "admin-orders");
-	        request.setAttribute("pageContent", "orders.jsp");
-	        request.getRequestDispatcher( "WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
-        } catch (Exception e ) {
+            request.setAttribute("activePage", "admin-orders");
+            request.setAttribute("pageContent", "orders.jsp");
+
+            // Forward request to the admin dashboard layout JSP
+            request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            // Log the exception for debugging
             e.printStackTrace();
+
+            // Set error message to show on the error page
             request.setAttribute("error", "Failed to load orders.");
+
+            // Forward to a generic error page
             request.getRequestDispatcher("WEB-INF/pages/error.jsp").forward(request, response);
         }
-	}
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		  try {
-		        int deliveryId = Integer.parseInt(request.getParameter("deliveryId"));
-		        String deliveryStatus = request.getParameter("deliveryStatus");
 
-		        OrderDAO orderDAO = new OrderDAO();
-		        orderDAO.updateDeliveryStatus(deliveryId, deliveryStatus);
+    /**
+     * Handles the HTTP POST request to update the delivery status of an order.
+     *
+     * @param request  the HttpServletRequest containing delivery ID and new status
+     * @param response the HttpServletResponse used to redirect or forward in case of error
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Parse delivery ID from request parameter
+            int deliveryId = Integer.parseInt(request.getParameter("deliveryId"));
 
-		        response.sendRedirect("admin-orders");
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        request.setAttribute("error", "Failed to update delivery status.");
-		        request.getRequestDispatcher("WEB-INF/pages/error.jsp").forward(request, response);
-		    }
-	}
+            // Get the new delivery status from request parameter
+            String deliveryStatus = request.getParameter("deliveryStatus");
+
+            // Initialize DAO for order operations
+            OrderDAO orderDAO = new OrderDAO();
+
+            // Update the delivery status in the database for the given delivery ID
+            orderDAO.updateDeliveryStatus(deliveryId, deliveryStatus);
+
+            // Redirect to the orders admin page to reflect updated status
+            response.sendRedirect("admin-orders");
+
+        } catch (Exception e) {
+            // Log the error stack trace for debugging
+            e.printStackTrace();
+
+            // Set error message attribute for the error page
+            request.setAttribute("error", "Failed to update delivery status.");
+
+            // Forward to a generic error page to inform the user/admin
+            request.getRequestDispatcher("WEB-INF/pages/error.jsp").forward(request, response);
+        }
+    }
+
 
 }

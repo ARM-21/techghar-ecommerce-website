@@ -38,28 +38,40 @@ public class AddNewCategory extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
+	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles the HTTP POST request to add a new category.
+	 *
+	 * @param request  the HttpServletRequest containing form data
+	 * @param response the HttpServletResponse used to redirect or handle errors
+	 * @throws IOException if an input or output error occurs
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		try {
-			String name = request.getParameter("categoryName");
-			Category category = new Category();
-			category.setName(name);
-			CategoryDAO dao;
-			dao = new CategoryDAO();
-			dao.addCategory(category);
-			response.sendRedirect("view-categories");
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			ErrorHandlerUtilty.handleErrorAdmin(request, response, "Cannot Add New Category");
-		}
-		
+	    try {
+	        // Retrieve the category name from the form parameter
+	        String name = request.getParameter("categoryName");
 
-		 // adjust based on your page name
+	        // Create a new Category object and set its name
+	        Category category = new Category();
+	        category.setName(name);
+
+	        // Create a new instance of CategoryDAO to interact with the database
+	        CategoryDAO dao;
+	        dao = new CategoryDAO();
+
+	        // Add the new category to the database
+	        dao.addCategory(category);
+
+	        // Redirect the user to the categories list page after successful addition
+	        response.sendRedirect("view-categories");
+
+	    } catch (ClassNotFoundException | SQLException e) {
+	        // Log the exception and delegate error handling to the utility method
+	        e.printStackTrace();
+	        ErrorHandlerUtilty.handleErrorAdmin(request, response, "Cannot Add New Category");
+	    }
 	}
+
 
 }
