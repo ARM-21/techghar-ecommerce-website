@@ -362,7 +362,7 @@
                         <span class="icon icon-search"></span>
                     </a>
                     <c:if test="${not empty sessionScope.username }">
-                        <a href="/cart" title="Cart" class="cart-icon-wrapper">
+                        <a href="cart" title="Cart" class="cart-icon-wrapper">
                             <span class="icon icon-cart"></span>
                             <span class="cart-count">${cartCount}</span>
                         </a>
@@ -377,9 +377,9 @@
                                     <span>${username}</span>
                                 </div>
                                 <div class="user-dropdown-content">
-                                    <a href="/user-profile?id=${id}" class="user-dropdown-item">Profile</a>
+                                    <a href="user-profile?id=${id}" class="user-dropdown-item">Profile</a>
                                     <a href="orders" class="user-dropdown-item">Orders</a>
-                                    <form action="/logout" method="POST" class="user-dropdown-item">
+                                    <form action="logout" method="POST" class="user-dropdown-item">
                                         <button type="submit">Logout</button>
                                     </form>
                                 </div>
@@ -388,7 +388,7 @@
                         <c:otherwise>
                             <!-- Guest Menu -->
                             <div class="auth-buttons">
-                                <a href="/login" class="login-btn">Login</a>
+                                <a href="login" class="login-btn">Login</a>
                                 <a href="register" class="login-btn">Sign Up</a>
                             </div>
                         </c:otherwise>

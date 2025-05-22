@@ -67,20 +67,20 @@
 	<aside class="sidebar">
 	<ul class="menu">
 		<!-- Profile link (shared) -->
-		<li><a href="/admin-profile?id=${sessionScope.id}"
+		<li><a href="admin-profile?id=${sessionScope.id}"
 			class="${activePage == 'admin-profile' ? 'active' : ''}"> <i
 				class="fas fa-user-cog"></i> <span>Profile</span>
 		</a></li>
 
 		<!-- Statistics/Dashboard link (shared) -->
-		<li><a href="/view-stat"
+		<li><a href="view-stat"
 			class="${activePage == 'view-stat' || activePage == 'dashboard' ? 'active' : ''}">
 				<i class="fas fa-tachometer-alt"></i> <span>Statistics</span>
 		</a></li>
 
 		<!-- Products (admin only) -->
 	
-			<li><a href="/admin-products"
+			<li><a href="admin-products"
 				class="${activePage == 'admin-products' ? 'active' : ''}"> <i
 					class="fas fa-mobile-alt"></i> <span>Products</span>
 			</a></li>
@@ -88,7 +88,7 @@
 
 		<!-- Categories (admin only) -->
 		<c:if test="${sessionScope.role == 'admin'}">
-			<li><a href="/view-categories"
+			<li><a href="view-categories"
 				class="${activePage == 'view-categories' ? 'active' : ''}"> <i
 					class="fas fa-tags"></i> <span>Categories</span>
 			</a></li>
@@ -96,30 +96,30 @@
 
 		<!-- Brands (admin only) -->
 		<c:if test="${sessionScope.role == 'admin'}">
-			<li><a href="/view-brands"
+			<li><a href="view-brands"
 				class="${activePage == 'view-brands' ? 'active' : ''}"> <i
 					class="fas fa-tags"></i> <span>Brands</span>
 			</a></li>
 		</c:if>
-		<li><a href="/admin-orders"
+		<li><a href="admin-orders"
 			class="${activePage == 'admin-orders' ? 'active' : ''}"> <i
 				class="fas fa-shopping-cart"></i> <span>Orders</span>
 		</a></li>
 		<!-- Orders (shared) -->
-		<li><a href="/admin-carousel"
+		<li><a href="admin-carousel"
 			class="${activePage == 'admin-carousel' ? 'active' : ''}"> <i
 				class="fas fa-shopping-cart"></i> <span>Carousel</span>
 		</a></li>
 
 		<!-- Customers (admin only) -->
 		<c:if test="${sessionScope.role == 'admin'}">
-			<li><a href="/admin-customers"
+			<li><a href="admin-customers"
 				class="${activePage == 'admin-customers' ? 'active' : ''}"> <i
 					class="fas fa-users"></i> <span>Customers</span>
 			</a></li>
 		</c:if>
 		<c:if test="${sessionScope.role == 'admin'}">
-			<li><a href="/admin-reports"
+			<li><a href="admin-reports"
 				class="${activePage == 'admin-reports' ? 'active' : ''}"> <i
 					class="fas fa-user-tie"></i> <span>Report</span>
 			</a></li>
@@ -127,7 +127,7 @@
 
 		<!-- Staff (admin only) -->
 		<c:if test="${sessionScope.role == 'admin'}">
-			<li><a href="/admin-staff"
+			<li><a href="admin-staff"
 				class="${activePage == 'admin-staff' ? 'active' : ''}"> <i
 					class="fas fa-user-tie"></i> <span>Staff</span>
 			</a></li>
@@ -135,7 +135,7 @@
 
 		<!-- Logout -->
 		<li>
-			<form method="post" action="/logout">
+			<form method="post" action="logout">
 				<i class="fas fa-sign-out-alt"></i>
 				<button type="submit">Logout</button>
 			</form>

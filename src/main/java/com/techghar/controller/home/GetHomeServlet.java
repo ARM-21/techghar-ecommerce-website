@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techghar.dao.CarouselDAO;
+import com.techghar.dao.CartDAO;
 import com.techghar.dao.ProductDAO;
 import com.techghar.model.CarouselItem;
+import com.techghar.model.CartItem;
 import com.techghar.model.Product;
 import com.techghar.utility.ErrorHandlerUtilty;
+import com.techghar.utility.SessionUtil;
 
-@WebServlet(asyncSupported = true, urlPatterns = { "/home","/products","" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/home","/products"})
 public class GetHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,16 +29,24 @@ public class GetHomeServlet extends HttpServlet {
 		String sort = null;
 		try {
 			
+			int userId = (int) SessionUtil.getAttribute(request,"id");
 			ProductDAO productDAO = new ProductDAO();
 			CarouselDAO carouselDAO = new CarouselDAO();
+			CartDAO cartDAO = new CartDAO();
 			ArrayList<CarouselItem> carouselItems = carouselDAO.getCarouselItems();
+			 List<CartItem> cartItems = cartDAO.getCartItems(userId);
+			if(userId > 0) {	
+			        double cartTotal = cartDAO.getCartTotal(userId);
+			        int cartCount = cartDAO.getCartItemCount(userId);
+			        
+			        request.setAttribute("cartCount", (int) cartTotal);
+			}
+			
 			System.out.println("Database Connected Successfully");
 			System.out.println(request.getRequestURI());
 			if(request.getRequestURI().equals("/products")) {
 				request.setAttribute("activePage", "products");	
-			}
-			
-			
+			}			
 			else {
 				request.setAttribute("carouselItems", carouselItems);
 				request.setAttribute("activePage", "home");
@@ -55,7 +66,6 @@ public class GetHomeServlet extends HttpServlet {
 				
 				products = productDAO.getAllProducts("price-low");	
 			}
-		
 
 			request.setAttribute("products", products);
 			// main section

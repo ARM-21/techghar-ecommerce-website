@@ -103,7 +103,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
 		<c:if test="${not empty success}">
 			<div class="alert alert-success">
 				<span>${success}</span> <a
-					href="/${sessionScope.role == 'admin'?'admin-profile':'user-profile'}?id=${sessionScope.id}">
+					href="${sessionScope.role == 'admin'?'admin-profile':'user-profile'}?id=${sessionScope.id}">
 					click here </a> <span class="alert-close"
 					onclick="this.parentElement.style.display='none'">×</span>
 			</div>
