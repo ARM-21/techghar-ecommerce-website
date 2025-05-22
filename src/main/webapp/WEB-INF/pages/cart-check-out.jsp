@@ -274,8 +274,7 @@ body {
 		session.removeAttribute("orderSuccess"); 
 	%>
 	<script>
-            alert("<%=orderSuccess%>
-		");
+            alert("<%=orderSuccess%>");
 	</script>
 	<%
 	}
